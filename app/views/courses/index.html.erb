@@ -1,0 +1,12 @@
+<h1>Courses</h1>
+
+<% if @courses.present? %>
+<ul>
+  <% @courses.each do |course| %>
+    <li>
+      <%= course.title %>
+  <% end %>
+</ul>
+<% else %>
+  <h2>No courses</h2>
+<% end %>
