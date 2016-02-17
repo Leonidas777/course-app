@@ -1,7 +1,9 @@
 class CoursesController < ApplicationController
   
+  PER_PAGE = 2
+
   def index
-    @courses = Course.all
+    @courses = Course.recent.page(params[:page]).per(params[:per_page] || PER_PAGE) 
   end
 
   def new
@@ -42,6 +44,6 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:title)
+    params.require(:course).permit(:title, :picture)
   end
 end
