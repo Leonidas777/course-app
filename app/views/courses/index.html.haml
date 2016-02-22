@@ -1,14 +1,33 @@
 %h1 Courses
 = link_to 'New course', new_course_path
 - if @courses.present?
-  %ul
-    - @courses.each do |course|
-      %li= image_tag course.picture.thumb
-      %li
-        = course.title
-        = link_to 'Edit course', edit_course_path(course)
-        = link_to 'Delete course', course_path(course), method: :delete, data: {confirm: 'Sure'}
+  %section.content
+    .row
+      - @courses.each do |course|      
+        .col-md-4
+          .box.box-widget
+            .box-header.with-border
+              .user-block
+                = image_tag 'user2-160x160.jpg', class: 'img-circle', alt: 'User Image'
+                %span.username
+                  %a{:href => "#"} Jonathan Burke Jr.
+                %span.description Shared publicly - 7:30 PM Today
+              / /.user-block
+              .box-tools
+                %button.btn.btn-box-tool{"data-toggle" => "tooltip", :title => "Mark as read"}
+                  %i.fa.fa-circle-o
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                  %i.fa.fa-times
+              / /.box-tools
+            / /.box-header
+            .box-body
+              = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
+              / %img.img-responsive.pad{:alt => "Photo", :src => "dist/img/photo2.png"}/
+              %h2= course.title
+            / /.box-body
+        / ./col
   = paginate @courses
 - else
   %h2 No courses
-  

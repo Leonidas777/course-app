@@ -17,6 +17,6 @@
 //= require slimScroll/jquery.slimscroll
 //= require fastclick/fastclick
 //= require app
-//= require pages/dashboard
 //= require demo
+//= require pages/dashboard
 //= require_tree .

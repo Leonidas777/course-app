@@ -11,8 +11,9 @@
  * file per style scope.
  *
  *= require AdminLTE
- *= require skins/skin-green.css
- *= require iCheck/flat/green.css
+ *= require skins/skin-blue
+ *= require iCheck/flat/green
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */
