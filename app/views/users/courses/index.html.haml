@@ -26,6 +26,8 @@
               = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
               / %img.img-responsive.pad{:alt => "Photo", :src => "dist/img/photo2.png"}/
               %h2= course.title
+              = link_to 'Edit', edit_users_course_path(course)
+              = link_to 'Delete', users_course_path(course), method: :delete
             / /.box-body
         / ./col
   = paginate @courses
