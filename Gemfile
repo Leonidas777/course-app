@@ -2,11 +2,16 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '4.2.5'
+gem 'uglifier'
+
+gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'simple_form'
 
 gem 'pg', '0.17.1'
 gem 'puma', '1.5.0'
+
+gem 'devise'
 
 gem 'kaminari'
 
