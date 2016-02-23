@@ -1,4 +1,5 @@
 %h1 Courses
+= link_to 'New course', new_users_course_path
 - if @courses.present?
   %section.content
     .row
@@ -23,7 +24,8 @@
             / /.box-header
             .box-body
               = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
-              %h2= course.title              
+              / %img.img-responsive.pad{:alt => "Photo", :src => "dist/img/photo2.png"}/
+              %h2= course.title
             / /.box-body
         / ./col
   = paginate @courses

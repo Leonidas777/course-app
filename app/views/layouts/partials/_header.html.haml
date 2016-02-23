@@ -1,6 +1,6 @@
 %header.main-header
   / Logo
-  %a.logo{:href => "index2.html"}
+  = link_to root_path, class: 'logo' do
     / mini logo for sidebar mini 50x50 pixels
     %span.logo-mini Rubyboost
     / logo for regular state and mobile devices
@@ -12,12 +12,20 @@
       %span.sr-only Toggle navigation
     .navbar-custom-menu
       %ul.nav.navbar-nav
-        / Messages: style can be found in dropdown.less
-        / User Account: style can be found in dropdown.less
-        %li.user.user-menu
-          %a{:href => "#"}
-            = image_tag 'user2-160x160.jpg', class: 'user-image', alt: 'User image'
-            %span.hidden-xs Alexander Pierce
-        %li.user.user-menu
-          %a.btn.btn-warning{:href => "#"}
-            %span.hidden-xs Sign Out
+        - if user_signed_in?
+          / Messages: style can be found in dropdown.less
+          / User Account: style can be found in dropdown.less
+          %li.user.user-menu
+            = link_to users_courses_path do
+              = image_tag 'user2-160x160.jpg', class: 'user-image', alt: 'User image'
+              %span.hidden-xs= current_user.email
+          %li.user.user-menu
+            = link_to destroy_user_session_path, method: :delete, class: 'btn btn-warning' do
+              %span.hidden-xs Sign Out
+        - else
+          %li.user.user-menu
+            = link_to new_user_registration_path, class: 'btn btn-success' do
+              %span.hidden-xs Sign Up
+          %li.user.user-menu
+            = link_to new_user_session_path, class: 'btn btn-success' do
+              %span.hidden-xs Sign In
