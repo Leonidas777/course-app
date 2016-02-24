@@ -1,10 +1,10 @@
-class Users::CoursesController < Users::BaseController  
+class Users::CoursesController < Users::BaseController
   PER_PAGE = 4
 
   before_action :find_course, only: [:edit, :update, :destroy]
 
   def index
-    @courses = current_user.courses.recent.page(params[:page]).per(params[:per_page] || PER_PAGE) 
+    @courses = current_user.courses.recent.page(params[:page]).per(params[:per_page] || PER_PAGE)
   end
 
   def new

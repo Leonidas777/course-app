@@ -8,6 +8,8 @@ AllCops:
     - 'bin/*'
     - 'spec/*'
     - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'config/initializers/*'
   TargetRubyVersion: 2.2
   DisplayCopNames: true
 
@@ -21,7 +23,13 @@ Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
 Style/ParallelAssignment:
-  Enabled: false  
+  Enabled: false
 
 Metrics/LineLength:
-  Max: 130  
+  Max: 130
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+  
+Style/EndOfLine:
+  Enabled: false
