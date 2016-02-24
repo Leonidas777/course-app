@@ -5,7 +5,7 @@ RSpec.describe 'Courses Page', type: :feature do
   # describe 'Index Page' do
   #   let!(:course) { create :course }
   #
-  #   before { visit users_courses_path }
+  #   before { visit courses_path }
   #
   #   it 'should display course title' do
   #     expect(page).to have_content course.title
@@ -46,7 +46,7 @@ RSpec.describe 'Courses Page', type: :feature do
   #       click_on 'Save'
   #     end
   #
-  #     expect(current_path).to eq users_courses_path
+  #     expect(current_path).to eq courses_path
   #     expect(page).to have_content 'Test title'
   #     expect(page).to_not have_content 'Initial title'
   #   end
@@ -59,7 +59,7 @@ RSpec.describe 'Courses Page', type: :feature do
   #   before { click_on 'Delete' }
   #
   #   specify do
-  #     expect(current_path).to eq users_courses_path
+  #     expect(current_path).to eq courses_path
   #     expect(page).to have_content 'No courses'
   #     expect(page).to_not have_content 'Initial title'
   #   end
