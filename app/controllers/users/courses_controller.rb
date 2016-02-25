@@ -1,5 +1,5 @@
 class Users::CoursesController < Users::BaseController
-  PER_PAGE = 4
+  PER_PAGE = 3
 
   before_action :find_course, only: [:edit, :update, :destroy]
 

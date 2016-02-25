@@ -1,6 +1,6 @@
 %h1 Courses
-= link_to 'New course', new_users_course_path
 - if @courses.present?
+  = paginate @courses
   %section.content
     .row
       - @courses.each do |course|      
@@ -12,7 +12,6 @@
                 %span.username
                   %a{:href => "#"} Jonathan Burke Jr.
                 %span.description Shared publicly - 7:30 PM Today
-              / /.user-block
               .box-tools
                 %button.btn.btn-box-tool{"data-toggle" => "tooltip", :title => "Mark as read"}
                   %i.fa.fa-circle-o
@@ -20,16 +19,14 @@
                   %i.fa.fa-minus
                 %button.btn.btn-box-tool{"data-widget" => "remove"}
                   %i.fa.fa-times
-              / /.box-tools
-            / /.box-header
             .box-body
               = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
-              / %img.img-responsive.pad{:alt => "Photo", :src => "dist/img/photo2.png"}/
               %h2= course.title
-              = link_to 'Edit', edit_users_course_path(course)
-              = link_to 'Delete', users_course_path(course), method: :delete
-            / /.box-body
-        / ./col
+              .row
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-block btn-info'
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'
   = paginate @courses
 - else
   %h2 No courses
