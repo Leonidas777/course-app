@@ -25,3 +25,5 @@ config/database.yml
 
 public/system
 public/uploads
+
+.rubocop_todo.yml
