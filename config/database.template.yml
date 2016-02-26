@@ -16,4 +16,5 @@ test:
 
 production:
   <<: *default
-  database: leoproject_production  
+  database: leoproject_production
+  

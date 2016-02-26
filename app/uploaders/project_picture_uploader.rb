@@ -1,4 +1,5 @@
 class ProjectPictureUploader < BaseUploader
+  
   version :admin_thumb do
     process resize_and_pad: [140, 100]
   end

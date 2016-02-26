@@ -1,4 +1,5 @@
 class BaseUploader < CarrierWave::Uploader::Base
+
   include CarrierWave::MiniMagick
 
   def store_dir
@@ -7,8 +8,7 @@ class BaseUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    fallback_path = 'fallback/' + [model.class.to_s.underscore, mounted_as, version_name, 'default.png'].compact.join('_')
-    ActionController::Base.helpers.asset_path fallback_path
+    ActionController::Base.helpers.asset_path 'fallback/' + [model.class.to_s.underscore, mounted_as, model.id].to_s
   end
 
   def extension_white_list
