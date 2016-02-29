@@ -22,3 +22,8 @@
           %li.user.user-menu
             = link_to new_user_session_path, class: 'btn btn-success' do
               %span.hidden-xs Sign In
+          %li.user.user-menu
+            = link_to 'Login Facebook', user_omniauth_authorize_path(provider: 'facebook')
+          %li.user.user-menu
+            = link_to 'Login Twitter', user_omniauth_authorize_path(provider: 'twitter')
+

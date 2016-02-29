@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
+  include Omniauthable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   has_one  :profile
   has_many :courses, dependent: :destroy
+  has_many :social_profiles
 
   accepts_nested_attributes_for :profile
 
