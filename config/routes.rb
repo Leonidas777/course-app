@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :courses, only: :index
 
   namespace :users do
+    resource  :profile, only: [:edit, :update], controller: :profile
     resources :courses
   end
 

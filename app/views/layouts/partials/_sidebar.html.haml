@@ -28,4 +28,12 @@
           %span Courses
       - if user_signed_in?
         %li
-          = link_to 'New course', new_users_course_path
+          = link_to new_users_course_path do
+            %i.fa.fa-cube
+            %span New course
+        %li
+          =link_to edit_users_profile_path do
+            %i.fa.fa-user.fa-fw
+            %span Edit profile
+
+
