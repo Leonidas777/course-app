@@ -25,7 +25,7 @@
               = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
               %h2= course.title              
             / /.box-body
-        / ./col
+        / ./col  
   = paginate @courses
 - else
   %h2 No courses

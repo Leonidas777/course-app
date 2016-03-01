@@ -7,8 +7,10 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   has_one  :profile
-  has_many :courses, dependent: :destroy
+  has_many :authored_courses, class_name: 'Course', foreign_key: :user_id, dependent: :destroy
   has_many :social_profiles
+  has_many :course_users
+  has_many :participated_courses, through: :course_users, source: :course
 
   accepts_nested_attributes_for :profile
 
