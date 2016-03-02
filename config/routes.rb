@@ -7,14 +7,15 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :courses, only: :index do
+  resources :courses do
     resources :participants, only: :index
     resource  :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
+    resources :lessons
   end
 
   namespace :users do
     resource  :profile, only: [:edit, :update], controller: :profile
-    resources :courses
+    resources :courses    
   end
 
   # Example of regular route:
