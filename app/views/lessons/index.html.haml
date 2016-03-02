@@ -1,0 +1,34 @@
+%h1= "\"#{current_course.title}\"/Lessons"
+- if @lessons.present?
+  = paginate @lessons
+  %section.content
+    .row
+      - @lessons.each do |lesson|      
+        .col-md-4
+          .box.box-widget
+            .box-header.with-border
+              .user-block
+                = image_tag current_course.picture.thumb, class: 'img-circle', alt: 'Course Image'
+                %span.username
+                  = lesson.title
+                %span.description Shared publicly - 7:30 PM Today
+              .box-tools
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                  %i.fa.fa-times
+            .box-body
+              = image_tag lesson.picture.thumb, class: 'img-responsive pad', alt: 'Lesson Image'
+              %span Description:
+              %p= lesson.description
+              %span Summary:
+              %p= lesson.summary
+              %span Homework:
+              %p= lesson.homework
+              .row
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'See', '#', class: 'btn btn-block btn-info'
+  = paginate @lessons  
+- else
+  %h2 No lessons
+= link_to 'Add a new lesson',  new_course_lesson_path

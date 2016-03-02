@@ -1,0 +1,9 @@
+= simple_form_for [:course, lesson] do |f|
+  = f.input :title
+  = f.input :description
+  = f.input :position
+  = f.input :picture, as: :file
+  = f.input :summary
+  = f.input :homework
+
+  = f.submit 'Save'
