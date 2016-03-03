@@ -2,8 +2,11 @@ class LessonsController < ApplicationController
   PER_PAGE = 6
 
   def index
-    # @courses = current_user.authored_courses.recent.page(params[:page]).per(params[:per_page] || PER_PAGE)
-    @lessons = current_course.lessons.page(params[:page]).per(params[:per_page] || PER_PAGE)
+    if params[:order] == 'desc'
+      @lessons = current_course.lessons.desc_order
+    else
+      @lessons = current_course.lessons.asc_order
+    end    
   end
 
   def show
@@ -31,19 +34,17 @@ class LessonsController < ApplicationController
   private
 
   def lesson_params
-    params.require(:lesson).permit(:title, :picture, :position, :description, :picture, :summary, :homework)
+    params.require(:lesson).permit(:title, :picture, :position, :description, :picture, :summary, :homework, :order)
   end
 
   def current_course
     @current_course ||= Course.find(params[:course_id])
   end
 
-  def visible_lesson?
-    @lesson ||= Lesson.find(params[:lesson_id])
-    
-    @lesson.visible?
+  def is_asc_order?
+    params[:order] != 'desc'
   end
 
-  helper_method :visible_lesson
   helper_method :current_course
+  helper_method :is_asc_order?  
 end

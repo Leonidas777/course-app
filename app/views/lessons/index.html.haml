@@ -1,7 +1,15 @@
 %h1= "\"#{current_course.title}\"/Lessons"
-- if @lessons.present?
-  = paginate @lessons
-  %section.content
+.row
+  - if @lessons.present?
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      - if is_asc_order?
+        = link_to 'Set desc order', course_lessons_path(order: 'desc'), class: 'btn btn-block btn-info'
+      - else  
+        = link_to 'Set asc order', course_lessons_path, class: 'btn btn-block btn-info'
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      = link_to 'Add a new lesson',  new_course_lesson_path, class: 'btn btn-block btn-info'
+%section.content  
+  - if @lessons.present?
     .row
       - @lessons.each do |lesson|      
         .col-md-4
@@ -11,7 +19,7 @@
                 = image_tag current_course.picture.thumb, class: 'img-circle', alt: 'Course Image'
                 %span.username
                   = lesson.title
-                %span.description Shared publicly - 7:30 PM Today
+                %span.description "Created at #{lesson.created_at}"
               .box-tools
                 %button.btn.btn-box-tool{"data-widget" => "collapse"}
                   %i.fa.fa-minus
@@ -37,7 +45,5 @@
                   = render 'lessons/unvisible_butt', lesson: lesson
                 - else
                   = render 'lessons/visible_butt', lesson: lesson
-  = paginate @lessons  
-- else
-  %h2 No lessons
-= link_to 'Add a new lesson',  new_course_lesson_path
+  - else
+    %h2 No lessons
