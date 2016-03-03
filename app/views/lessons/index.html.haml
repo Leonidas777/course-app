@@ -19,15 +19,24 @@
                   %i.fa.fa-times
             .box-body
               = image_tag lesson.picture.thumb, class: 'img-responsive pad', alt: 'Lesson Image'
+              
               %span Description:
               %p= lesson.description
+
               %span Summary:
               %p= lesson.summary
+
               %span Homework:
               %p= lesson.homework
-              .row
+
+              .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'See', '#', class: 'btn btn-block btn-info'
+
+                - if lesson.is_visible?
+                  = render 'lessons/unvisible_butt', lesson: lesson
+                - else
+                  = render 'lessons/visible_butt', lesson: lesson
   = paginate @lessons  
 - else
   %h2 No lessons

@@ -37,5 +37,13 @@ class LessonsController < ApplicationController
   def current_course
     @current_course ||= Course.find(params[:course_id])
   end
+
+  def visible_lesson?
+    @lesson ||= Lesson.find(params[:lesson_id])
+    
+    @lesson.visible?
+  end
+
+  helper_method :visible_lesson
   helper_method :current_course
 end

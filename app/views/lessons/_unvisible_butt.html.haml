@@ -1,0 +1,2 @@
+.col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-unvisible-butt"}
+  = link_to 'Make unvisible', course_visible_lesson_path(id: lesson.attributes['id']), method: :delete, remote: true, class: 'btn btn-block btn-info'

@@ -7,4 +7,8 @@ class Lesson < ActiveRecord::Base
   validates :homework, presence: true, length: { maximum: 1000 }
 
   mount_uploader :picture, ProjectPictureUploader
+
+  def is_visible?
+    self.visible?
+  end
 end

@@ -1,0 +1,2 @@
+.col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-visible-butt"}
+  = link_to 'Make visible',  course_visible_lessons_path(id: lesson.attributes['id']), method: :post, remote: true, class: 'btn btn-block btn-info'
