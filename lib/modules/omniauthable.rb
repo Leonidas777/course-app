@@ -3,7 +3,7 @@ module Omniauthable
 
   included do
     attr_accessor :social_login
-    def self.find_or_create_with_oauth(oauth_data, user_data = {})
+    def self.find_or_create_with_oauth(oauth_data)
       find_with_oauth(oauth_data) || create_with_oauth(oauth_data)
     end
 
@@ -18,8 +18,8 @@ module Omniauthable
 
     def self.create_with_oauth(oauth_data)
       first_name, last_name = oauth_data.extra.raw_info.name.split(' ')
-      
-      user = User.new(profile_attributes: { first_name: first_name, last_name: last_name})
+
+      user = User.new(profile_attributes: { first_name: first_name, last_name: last_name })
       user.social_login = true
 
       user.save!
@@ -29,8 +29,10 @@ module Omniauthable
 
     def register_social_profile(service_name, uid)
       social_profile = SocialProfile.where(service_name: service_name, uid: uid).first_or_create
-      if social_profile.user_id.present? && social_profile.user_id != id
-        return false
+      if social_profile.user_id.present?
+        if social_profile.user_id != id
+          return false
+        end
       else
         social_profile.update!(user_id: id)
       end

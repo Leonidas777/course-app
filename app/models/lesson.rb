@@ -11,11 +11,7 @@ class Lesson < ActiveRecord::Base
 
   mount_uploader :picture, ProjectPictureUploader
 
-  def is_visible?
-    self.visible?
+  def visible?
+    visible?
   end
-
-  # def is_authored?
-  #   # self.course.
-  # end
 end

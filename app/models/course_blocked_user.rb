@@ -1,4 +1,4 @@
-class CourseUser < ActiveRecord::Base
+class CourseBlockedUser < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
 

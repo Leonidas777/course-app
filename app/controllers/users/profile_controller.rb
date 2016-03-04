@@ -1,5 +1,4 @@
 class Users::ProfileController < Users::BaseController
-
   def edit
   end
 
@@ -14,6 +13,6 @@ class Users::ProfileController < Users::BaseController
   private
 
   def user_params
-     params.require(:user).permit(:email, :password, :password_confirmation, profile_attributes: [:first_name, :last_name])
+    params.require(:user).permit(:email, :password, :password_confirmation, profile_attributes: [:first_name, :last_name])
   end
 end

@@ -53,6 +53,7 @@ group :development do
   gem 'better_errors'
   gem 'spring-commands-rspec'
   gem 'bullet'
+  gem 'hirb'
 end
 
 group :test do

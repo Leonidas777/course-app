@@ -1,6 +1,6 @@
 %h1 Course "#{course.title}" participants
 
-- if user_signed_in?
+- if user_signed_in? && !blocked_user? && current_user.id != course.user_id && !current_user.participate_in?(course)
   #subscription-button{ style: ('display: none;' if current_user.participate_in?(course)) }
     = link_to 'Subscribe', course_subscriptions_path(course), method: :post, remote: true
 

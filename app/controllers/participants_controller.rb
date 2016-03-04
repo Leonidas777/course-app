@@ -1,7 +1,14 @@
 class ParticipantsController < ApplicationController
-  
+  before_action :authenticate_user!
+
   def index
-    @users = course.participants.includes(:profile)
+    @users = course.participants.where.not(id: course.blocked_users).includes(:profile)
+  end
+
+  def destroy
+    CourseBlockedUser.create(course_id: params['course_id'], user_id: params['id']).save!
+
+    redirect_to course_participants_path
   end
 
   private
@@ -9,5 +16,10 @@ class ParticipantsController < ApplicationController
   def course
     @course ||= Course.find(params[:course_id])
   end
-  helper_method :course
+
+  def blocked_user?
+    course.blocked_users.where(id: current_user).exists?
+  end
+
+  helper_method :course, :blocked_user?
 end

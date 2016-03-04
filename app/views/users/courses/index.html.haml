@@ -11,10 +11,8 @@
                 = image_tag 'user2-160x160.jpg', class: 'img-circle', alt: 'User Image'
                 %span.username
                   %a{:href => "#"} Jonathan Burke Jr.
-                %span.description Shared publicly - 7:30 PM Today
-              .box-tools
-                %button.btn.btn-box-tool{"data-toggle" => "tooltip", :title => "Mark as read"}
-                  %i.fa.fa-circle-o
+                %span.description "Created at #{course.created_at}"
+              .box-tools                
                 %button.btn.btn-box-tool{"data-widget" => "collapse"}
                   %i.fa.fa-minus
                 %button.btn.btn-box-tool{"data-widget" => "remove"}
@@ -29,7 +27,8 @@
                   = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Lessons', course_lessons_path(course), class: 'btn btn-block btn-info'
-        = link_to 'Participants', course_participants_path(course)
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Participants', course_participants_path(course), class: 'btn btn-block btn-info'
   = paginate @courses  
 - else
   %h2 No courses

@@ -3,3 +3,5 @@
   %td
     - if user_signed_in? && user.id == current_user.id
       = link_to 'Unsubscribe', course_subscriptions_path(course), method: :delete, remote: true
+    - if current_user.id == course.user_id
+      = link_to 'Expel', course_participant_path(id: user.attributes['id']), method: :delete

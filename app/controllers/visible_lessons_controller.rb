@@ -16,5 +16,6 @@ class VisibleLessonsController < ApplicationController
   def lesson
     @lesson ||= Lesson.find(params[:id])
   end
+
   helper_method :lesson
 end

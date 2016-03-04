@@ -18,5 +18,5 @@ class User < ActiveRecord::Base
 
   def participate_in?(course)
     course_users.exists?(course_id: course.id)
-  end  
+  end
 end

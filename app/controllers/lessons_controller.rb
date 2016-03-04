@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
       @lessons = current_course.lessons.desc_order
     else
       @lessons = current_course.lessons.asc_order
-    end    
+    end
   end
 
   def show
@@ -41,10 +41,13 @@ class LessonsController < ApplicationController
     @current_course ||= Course.find(params[:course_id])
   end
 
-  def is_asc_order?
+  def asc_order?
     params[:order] != 'desc'
   end
 
-  helper_method :current_course
-  helper_method :is_asc_order?  
+  def author?
+    current_user.id == current_course.user.id
+  end
+
+  helper_method :current_course, :asc_order?, :author?
 end
