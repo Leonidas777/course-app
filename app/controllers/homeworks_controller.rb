@@ -16,7 +16,6 @@ class HomeworksController < ApplicationController
   end
 
   def destroy
-
   end
 
   private
