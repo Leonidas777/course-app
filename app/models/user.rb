@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :course_users
   has_many :participated_courses, through: :course_users, source: :course
 
+  has_many :homeworks
+
   accepts_nested_attributes_for :profile
 
   delegate :first_name, :last_name, to: :profile, allow_nil: true

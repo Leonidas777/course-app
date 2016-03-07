@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   resources :courses do
     resources :participants, only: [:index, :destroy]
     resource  :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
-    resources :lessons
     resources :visible_lessons, only: [:create, :destroy], controller: :visible_lessons
+    resources :lessons do
+      resources :homeworks, only: [:new, :create, :show, :destroy]
+    end
   end
 
   namespace :users do

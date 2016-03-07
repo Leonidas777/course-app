@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303163100) do
+ActiveRecord::Schema.define(version: 20160306083746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160303163100) do
     t.datetime "updated_at"
   end
 
+  add_index "course_blocked_users", ["course_id"], name: "index_course_blocked_users_on_course_id", unique: true, using: :btree
   add_index "course_blocked_users", ["user_id", "user_id"], name: "index_course_blocked_users_on_user_id_and_user_id", unique: true, using: :btree
 
   create_table "course_users", force: :cascade do |t|
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160303163100) do
     t.datetime "updated_at"
   end
 
+  add_index "course_users", ["course_id"], name: "index_course_users_on_course_id", unique: true, using: :btree
   add_index "course_users", ["user_id", "user_id"], name: "index_course_users_on_user_id_and_user_id", unique: true, using: :btree
 
   create_table "courses", force: :cascade do |t|
@@ -44,6 +46,14 @@ ActiveRecord::Schema.define(version: 20160303163100) do
   end
 
   add_index "courses", ["user_id"], name: "index_courses_on_user_id", using: :btree
+
+  create_table "homeworks", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "user_id"
+    t.string   "hw_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "course_id"

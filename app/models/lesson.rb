@@ -1,5 +1,6 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
+  has_many   :homeworks
 
   scope :desc_order, -> { order(created_at: :desc) }
   scope :asc_order, -> { order(created_at: :asc) }
@@ -11,7 +12,7 @@ class Lesson < ActiveRecord::Base
 
   mount_uploader :picture, ProjectPictureUploader
 
-  def visible?
+  def self.visible?
     visible?
   end
 end

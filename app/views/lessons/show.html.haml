@@ -1,1 +1,16 @@
-%h1 Show lesson
+%h1= @lesson.title
+
+= image_tag @lesson.picture.thumb, class: 'img-responsive pad', alt: 'Lesson Image'
+
+%span Description
+%p= @lesson.description
+
+%span Summary
+%p= @lesson.summary
+
+%span Homework
+%p= @lesson.homework
+
+%a.btn.btn-primary{"data-toggle" => "modal", :href => "#homework-modal"} Send homework
+
+= render 'homeworks/form', lesson: @lesson
