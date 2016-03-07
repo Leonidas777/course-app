@@ -8,5 +8,6 @@
   = f.simple_fields_for :profile do |pf|
     = pf.input :first_name
     = pf.input :last_name
+    = pf.input :photo, as: :file
 
   = f.submit 'Save'

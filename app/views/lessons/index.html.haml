@@ -19,7 +19,7 @@
             .box.box-widget
               .box-header.with-border
                 .user-block
-                  = image_tag current_course.picture.thumb, class: 'img-circle', alt: 'Course Image'
+                  = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
                   %span.username
                     = lesson.title
                   %span.description "Created at #{lesson.created_at}"
@@ -29,7 +29,7 @@
                   %button.btn.btn-box-tool{"data-widget" => "remove"}
                     %i.fa.fa-times
               .box-body
-                = image_tag lesson.picture.thumb, class: 'img-responsive pad', alt: 'Lesson Image'
+                = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
                 
                 .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
                   -if author?

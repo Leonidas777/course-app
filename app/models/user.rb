@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :profile
 
-  delegate :first_name, :last_name, to: :profile, allow_nil: true
+  delegate :first_name, :last_name, :photo, to: :profile, allow_nil: true
 
   def participate_in?(course)
     course_users.exists?(course_id: course.id)

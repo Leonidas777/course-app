@@ -7,7 +7,7 @@
           .box.box-widget
             .box-header.with-border
               .user-block
-                = image_tag 'user2-160x160.jpg', class: 'img-circle', alt: 'User Image'
+                = image_tag current_user.profile.thumb_40x40, class: 'img-circle', alt: 'User Image'
                 %span.username
                   %a{:href => "#"} Jonathan Burke Jr.
                 %span.description Shared publicly - 7:30 PM Today
