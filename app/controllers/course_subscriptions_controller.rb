@@ -6,7 +6,7 @@ class CourseSubscriptionsController < ApplicationController
   end
 
   def destroy
-    course.course_users.where(user_id: current_user['id']).first.destroy
+    course.course_users.where(user_id: current_user.id).first.destroy
   end
 
   private

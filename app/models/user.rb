@@ -13,12 +13,13 @@ class User < ActiveRecord::Base
   has_many :participated_courses, through: :course_users, source: :course
 
   has_many :homeworks
+  has_many :blocked_users_courses, through: :course_blocked_user, source: :course
 
   accepts_nested_attributes_for :profile
 
   delegate :first_name, :last_name, :photo, to: :profile, allow_nil: true
 
-  def participate_in?(course)
-    course_users.exists?(course_id: course.id)
+  def participate_in?(course_id)
+    course_users.exists?(course_id: course_id)
   end
 end

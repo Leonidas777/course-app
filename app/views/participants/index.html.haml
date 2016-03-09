@@ -1,8 +1,10 @@
 %h1 Course "#{course.title}" participants
 
-- if user_signed_in? && !blocked_user? && current_user.id != course.user_id && !current_user.participate_in?(course)
-  #subscription-button{ style: ('display: none;' if current_user.participate_in?(course)) }
-    = link_to 'Subscribe', course_subscriptions_path(course), method: :post, remote: true
+- if user_signed_in? && !blocked_user? && current_user.id != course.user_id
+  #subscription-button{ style: ('display: none;' if current_user.participate_in?(course.id)) }
+    .row
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+        = link_to 'Subscribe', course_subscriptions_path(course), class: 'btn btn-block btn-info', method: :post, remote: true
 
 %table.table.table-bordered
   %tbody#participants-list

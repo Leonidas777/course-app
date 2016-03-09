@@ -6,6 +6,7 @@ class HomeworksController < ApplicationController
   end
 
   def new
+    return unless current_user.participate_in?(params[:course_id])
     @homework = current_user.homeworks.build
   end
 
@@ -21,6 +22,6 @@ class HomeworksController < ApplicationController
   private
 
   def homework_params
-    { lesson_id: params[:lesson_id], hw_text: params[:homework][:hw_text] }
+    { lesson_id: params[:lesson_id], course_id: params[:course_id], hw_text: params[:homework][:hw_text] }
   end
 end

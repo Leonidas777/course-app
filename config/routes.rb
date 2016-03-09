@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :lessons do
       resources :homeworks, only: [:new, :create, :show, :destroy]
     end
+    resources :blocked_users, only: [:create], controller: :course_blocked_users
   end
 
   namespace :users do

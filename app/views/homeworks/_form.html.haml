@@ -5,7 +5,7 @@
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
         %h4.modal-title Put your homework, please
       .modal-body
-        = simple_form_for :homework, url: course_lesson_homeworks_path(lesson_id: lesson.attributes['id']), method: :post, remote: true do |f|
+        = simple_form_for :homework, url: course_lesson_homeworks_path(lesson_id: lesson.attributes['id'], course_id: lesson.course['id']), method: :post, remote: true do |f|
           = f.input :hw_text, as: :text, class: 'form-control'
 
           = f.submit 'Save', class: 'btn btn-primary'
