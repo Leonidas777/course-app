@@ -1,5 +1,5 @@
 class ParticipantsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:destroy]
 
   def index
     @users = course.participants.where.not(id: course.blocked_users).includes(:profile)

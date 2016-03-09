@@ -3,9 +3,16 @@ class LessonsController < ApplicationController
 
   def index
     if params[:order] == 'desc'
-      @lessons = current_course.lessons.desc_order
-    else
-      @lessons = current_course.lessons.asc_order
+      if user_signed_in? && author?
+        @lessons = current_course.lessons.desc_order
+      else
+        @lessons = current_course.lessons.where(visible: true).desc_order
+      end
+    elsif user_signed_in? && author?
+        @lessons = current_course.lessons.asc_order
+      else
+        @lessons = current_course.lessons.where(visible: true).asc_order
+      end
     end
   end
 
@@ -49,5 +56,5 @@ class LessonsController < ApplicationController
     current_user.id == current_course.user.id
   end
 
-  helper_method :current_course, :asc_order?, :author?
+  helper_method :current_course, :asc_order?, :author?  
 end

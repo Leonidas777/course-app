@@ -6,7 +6,7 @@
         = link_to 'Set desc order', course_lessons_path(order: 'desc'), class: 'btn btn-block btn-info'
       - else  
         = link_to 'Set asc order', course_lessons_path, class: 'btn btn-block btn-info'
-  -if author?
+  -if user_signed_in? && author?
     .col-xs-2.col-sm-2.col-md-2.col-lg-2
       = link_to 'Add a new lesson',  new_course_lesson_path, class: 'btn btn-block btn-info'
 %section.content  
@@ -14,30 +14,30 @@
     .row
       - @lessons.each do |lesson| 
 
-        - if lesson.visible? || author?     
-          .col-md-4
-            .box.box-widget
-              .box-header.with-border
-                .user-block
-                  = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
-                  %span.username
-                    = lesson.title
-                  %span.description "Created at #{lesson.created_at}"
-                .box-tools
-                  %button.btn.btn-box-tool{"data-widget" => "collapse"}
-                    %i.fa.fa-minus
-                  %button.btn.btn-box-tool{"data-widget" => "remove"}
-                    %i.fa.fa-times
-              .box-body
-                = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
-                
-                .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
-                  -if author?
-                    - if lesson.visible?
-                      = render 'lessons/invisible_butt', lesson: lesson
-                    - else
-                      = render 'lessons/visible_butt', lesson: lesson                
-                  .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
-                    = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'  
+        / - if lesson.visible? || user_signed_in? && author?     
+        .col-md-4
+          .box.box-widget
+            .box-header.with-border
+              .user-block
+                = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
+                %span.username
+                  = lesson.title
+                %span.description "Created at #{lesson.created_at}"
+              .box-tools
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                  %i.fa.fa-times
+            .box-body
+              = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
+              
+              .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
+                -if user_signed_in? && author?
+                  - if lesson.visible?
+                    = render 'lessons/invisible_butt', lesson: lesson
+                  - else
+                    = render 'lessons/visible_butt', lesson: lesson                
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
+                  = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'  
   - else
     %h2 No lessons
