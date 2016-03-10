@@ -13,7 +13,6 @@ class LessonsController < ApplicationController
       else
         @lessons = current_course.lessons.where(visible: true).asc_order
       end
-    end
   end
 
   def show
@@ -56,5 +55,5 @@ class LessonsController < ApplicationController
     current_user.id == current_course.user.id
   end
 
-  helper_method :current_course, :asc_order?, :author?  
+  helper_method :current_course, :asc_order?, :author?
 end
