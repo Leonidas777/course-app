@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309194209) do
+ActiveRecord::Schema.define(version: 20160310135800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,7 @@ ActiveRecord::Schema.define(version: 20160309194209) do
     t.datetime "updated_at"
   end
 
-  add_index "course_blocked_users", ["course_id"], name: "index_course_blocked_users_on_course_id", unique: true, using: :btree
-  add_index "course_blocked_users", ["user_id", "user_id"], name: "index_course_blocked_users_on_user_id_and_user_id", unique: true, using: :btree
+  add_index "course_blocked_users", ["user_id", "course_id"], name: "index_course_blocked_users_on_user_id_and_course_id", unique: true, using: :btree
 
   create_table "course_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,8 +32,7 @@ ActiveRecord::Schema.define(version: 20160309194209) do
     t.datetime "updated_at"
   end
 
-  add_index "course_users", ["course_id"], name: "index_course_users_on_course_id", unique: true, using: :btree
-  add_index "course_users", ["user_id", "user_id"], name: "index_course_users_on_user_id_and_user_id", unique: true, using: :btree
+  add_index "course_users", ["user_id", "course_id"], name: "index_course_users_on_user_id_and_course_id", unique: true, using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"

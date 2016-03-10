@@ -2,17 +2,8 @@ class LessonsController < ApplicationController
   PER_PAGE = 6
 
   def index
-    if params[:order] == 'desc'
-      if user_signed_in? && author?
-        @lessons = current_course.lessons.desc_order
-      else
-        @lessons = current_course.lessons.where(visible: true).desc_order
-      end
-    elsif user_signed_in? && author?
-        @lessons = current_course.lessons.asc_order
-      else
-        @lessons = current_course.lessons.where(visible: true).asc_order
-      end
+    return desc_order_lessons if params[:order] == 'desc'
+    asc_order_lessons
   end
 
   def show
@@ -53,6 +44,16 @@ class LessonsController < ApplicationController
 
   def author?
     current_user.id == current_course.user.id
+  end
+
+  def desc_order_lessons
+    return @lessons = current_course.lessons.desc_order if user_signed_in? && author?
+    @lessons = current_course.lessons.where(visible: true).desc_order
+  end
+
+  def asc_order_lessons
+    return @lessons = current_course.lessons.asc_order if user_signed_in? && author?
+    @lessons = current_course.lessons.where(visible: true).asc_order
   end
 
   helper_method :current_course, :asc_order?, :author?

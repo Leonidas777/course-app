@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :lesson do
-
     sequence(:title)  { |n| "Lesson-#{n}" }
     description { Faker::Lorem.paragraph }
     sequence(:position) { |n| n}

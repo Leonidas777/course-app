@@ -7,6 +7,6 @@ class CreateCourseBlockedUsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :course_blocked_users, [:user_id, :user_id], unique: true
+    add_index :course_blocked_users, [:user_id, :course_id], unique: true
   end
 end
