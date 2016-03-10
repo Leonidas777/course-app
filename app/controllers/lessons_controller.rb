@@ -47,13 +47,17 @@ class LessonsController < ApplicationController
   end
 
   def desc_order_lessons
-    return @lessons = current_course.lessons.desc_order if user_signed_in? && author?
-    @lessons = current_course.lessons.where(visible: true).desc_order
+    if user_signed_in? && author?
+      return @lessons = current_course.lessons.desc_order.one_page(params[:page], params[:per_page])
+    end
+    @lessons = current_course.lessons.desc_order.one_page(params[:page], params[:per_page], true)
   end
 
   def asc_order_lessons
-    return @lessons = current_course.lessons.asc_order if user_signed_in? && author?
-    @lessons = current_course.lessons.where(visible: true).asc_order
+    if user_signed_in? && author?
+      return @lessons = current_course.lessons.asc_order.one_page(params[:page], params[:per_page]) if user_signed_in? && author?
+    end
+    @lessons = current_course.lessons.asc_order.one_page(params[:page], params[:per_page], true)
   end
 
   helper_method :current_course, :asc_order?, :author?

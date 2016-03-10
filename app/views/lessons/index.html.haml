@@ -11,6 +11,7 @@
       = link_to 'Add a new lesson',  new_course_lesson_path, class: 'btn btn-block btn-info'
 %section.content  
   - if @lessons.present?
+    = paginate @lessons
     .row
       - @lessons.each do |lesson| 
 
@@ -38,6 +39,7 @@
                   - else
                     = render 'lessons/visible_butt', lesson: lesson                
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
-                  = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'  
+                  = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'
+    = paginate @lessons
   - else
     %h2 No lessons

@@ -1,5 +1,6 @@
 %h1 Courses
 - if @courses.present?
+  = paginate @courses
   %section.content
     .row
       - @courses.each do |course|      

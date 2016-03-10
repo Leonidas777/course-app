@@ -1,4 +1,5 @@
 class Lesson < ActiveRecord::Base
+  PER_PAGE = 6
   belongs_to :course
   has_many   :homeworks
 
@@ -14,5 +15,10 @@ class Lesson < ActiveRecord::Base
 
   def self.visible?
     visible?
+  end
+
+  def self.one_page(page, per_page, visible=false)
+    return where(visible: true).page(page).per(per_page || PER_PAGE) if visible
+    page(page).per(per_page || PER_PAGE)
   end
 end
