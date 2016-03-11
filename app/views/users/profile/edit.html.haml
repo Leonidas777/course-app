@@ -1,13 +1,22 @@
-%h1 Update profile data
+.box-header.with-border
+  %h1.box-title Updating the profile data
+.row
+  .col-sm-6.col-md-6.col-lg-3
+    = simple_form_for current_user, url: users_profile_path do |f|
+      .box-body
+        .form-group
+          = f.input :email, placeholder: 'Enter email', input_html: { class: 'form-control' }
+        .form-group
+          = f.input :password, placeholder: 'Password', input_html: { class: 'form-control' }, error_html: { class: 'has-error' }
+        .form-group
+          = f.input :password_confirmation, placeholder: 'Password confirmation', input_html: { class: 'form-control' }
 
-= simple_form_for current_user, url: users_profile_path do |f|
-  = f.input :email
-  = f.input :password
-  = f.input :password_confirmation
-
-  = f.simple_fields_for :profile do |pf|
-    = pf.input :first_name
-    = pf.input :last_name
-    = pf.input :photo, as: :file
-
-  = f.submit 'Save'
+      = f.simple_fields_for :profile do |pf|
+        .box-body
+          .form-group
+            = pf.input :first_name, input_html: { class: 'form-control' }
+          .form-group
+            = pf.input :last_name, input_html: { class: 'form-control' }
+          .form-group
+            = pf.input :photo, as: :file     
+      = f.submit 'Save', class: 'btn btn-primary'

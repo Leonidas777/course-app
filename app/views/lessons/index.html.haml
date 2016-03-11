@@ -1,4 +1,5 @@
-%h1= "\"#{current_course.title}\"/Lessons"
+.box-header.with-border
+  %h1.box-title= "Lessons/\"#{current_course.title}\""
 .row
   - if @lessons.present?
     .col-xs-2.col-sm-2.col-md-2.col-lg-2
@@ -13,9 +14,7 @@
   - if @lessons.present?
     = paginate @lessons
     .row
-      - @lessons.each do |lesson| 
-
-        / - if lesson.visible? || user_signed_in? && author?     
+      - @lessons.each do |lesson|
         .col-md-4
           .box.box-widget
             .box-header.with-border

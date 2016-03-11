@@ -1,14 +1,21 @@
-%h1= @lesson.title
+.box-header.with-border
+  %h1.box-title= "Lesson \"#{@lesson.title}\""
 
 = image_tag @lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
 
-%span Description
+%strong
+  %i.fa.fa-certificate.margin-r-5
+  Description
 %p= @lesson.description
 
-%span Summary
+%strong
+  %i.fa.fa-book.margin-r-5
+  Summary
 %p= @lesson.summary
 
-%span Homework
+%strong
+  %i.fa.fa-meh-o.margin-r-5
+  Homework
 %p= @lesson.homework
 
 - if current_user.present? && current_user.participate_in?(@lesson.course)
