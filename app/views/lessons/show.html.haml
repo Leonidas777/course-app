@@ -1,6 +1,8 @@
 .box-header.with-border
   %h1.box-title= "Lesson \"#{@lesson.title}\""
 
+%strong= "Meeting date: #{@lesson.meeting_date}"
+
 = image_tag @lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
 
 %strong

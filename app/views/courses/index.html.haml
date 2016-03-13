@@ -11,7 +11,7 @@
               .user-block
                 = image_tag course.user.profile.photo.thumb_40x40, class: 'img-circle', alt: 'User Image'
                 %span.username= "#{course.user.first_name} #{course.user.last_name}"
-                %span.description= "Created at #{course.created_at}"
+                %span.description= "Created at: #{course.creating_date}"
               .box-tools
                 %button.btn.btn-box-tool{"data-widget" => "collapse"}
                   %i.fa.fa-minus

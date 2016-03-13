@@ -21,4 +21,14 @@ class Lesson < ActiveRecord::Base
     return where(visible: true).page(page).per(per_page || PER_PAGE) if visible
     page(page).per(per_page || PER_PAGE)
   end
+
+  def meeting_date
+    return date.strftime('on %B %d, %Y') if date.present?
+    'undefined'
+  end
+
+  def creating_date
+    return created_at.strftime('on %B %d, %Y, %I:%M%p') if created_at.present?
+    'undefined'
+  end
 end

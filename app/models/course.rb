@@ -11,4 +11,9 @@ class Course < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 40 }
 
   mount_uploader :picture, ProjectPictureUploader
+
+  def creating_date
+    return created_at.strftime('on %B %d, %Y, %I:%M%p') if created_at.present?
+    'undefined'
+  end
 end

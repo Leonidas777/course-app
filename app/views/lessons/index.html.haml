@@ -22,15 +22,14 @@
                 = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
                 %span.username
                   = lesson.title
-                %span.description "Created at #{lesson.created_at}"
+                %span.description "Created at: #{lesson.creating_date}"
               .box-tools
                 %button.btn.btn-box-tool{"data-widget" => "collapse"}
                   %i.fa.fa-minus
                 %button.btn.btn-box-tool{"data-widget" => "remove"}
                   %i.fa.fa-times
             .box-body
-              = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
-              
+              = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'              
               .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
                 -if user_signed_in? && author?
                   - if lesson.visible?

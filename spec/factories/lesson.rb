@@ -5,5 +5,6 @@ FactoryGirl.define do
     sequence(:position) { |n| n}
     summary { Faker::Lorem.paragraph }
     homework { Faker::Lorem.paragraph }
+    sequence(:date) { |n| n.day.from_now }
   end
 end
