@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   namespace :users do
     resource  :profile, only: [:edit, :update], controller: :profile
     resources :courses
+    resources :subscribed_courses, only: [:index]
   end
 
   # Example of regular route:
