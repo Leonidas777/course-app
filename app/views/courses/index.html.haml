@@ -26,8 +26,9 @@
                     = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-block btn-info'
                   .col-xs-6.col-sm-6.col-md-6.col-lg-6
                     = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'               
-                .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                  = link_to 'Lessons', course_lessons_path(course), class: 'btn btn-block btn-info'
+                -if author(course) || user_signed_in? && current_user.participate_in?(course.id)
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                    = link_to 'Lessons', course_lessons_path(course), class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Participants', course_participants_path(course), class: 'btn btn-block btn-info'
   = paginate @courses
