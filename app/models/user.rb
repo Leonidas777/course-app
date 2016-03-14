@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :homeworks
   has_many :blocked_users_courses, through: :course_blocked_user, source: :course
 
+  before_save  :ensure_authentication_token
   after_create :create_user_profile
   accepts_nested_attributes_for :profile, allow_destroy: true
 
@@ -31,5 +32,18 @@ class User < ActiveRecord::Base
   def create_user_profile
     build_profile
     profile.save(validates: false)
+  end
+
+  def ensure_authentication_token
+    if authentication_token.blank?
+      self.authentication_token = generate_authentication_token
+    end
+  end
+
+  def generate_authentication_token
+    loop do 
+      token = Devise.friendly_token
+      break token unless User.exists?(authentication_token: token)
+    end
   end
 end

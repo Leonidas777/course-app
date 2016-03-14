@@ -7,7 +7,19 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :courses do
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: :index
+      resources :auth_tokens, only: :create
+
+      scope 'user/self', as: 'user', module: 'user' do
+        resources :courses, only: :index
+        resources :subscribed_courses, only: :index
+      end
+    end
+  end
+
+  resources :courses, only: [:index, :show] do
     resources :participants, only: [:index, :destroy]
     resource  :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
     resources :visible_lessons, only: [:create, :destroy], controller: :visible_lessons
