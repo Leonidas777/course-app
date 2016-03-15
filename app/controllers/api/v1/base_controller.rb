@@ -30,8 +30,8 @@ class Api::V1::BaseController < ActionController::Base
 
   def respond_with_internal_error(exception)
     response = { success: false, message: 'Internal error' }
-    response.merge!(debug: exception.message) unless Rails.env.production?
-    
+    response[:debug] = exception.message unless Rails.env.production?
+
     render json: response, status: 500
   end
 

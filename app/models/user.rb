@@ -35,13 +35,11 @@ class User < ActiveRecord::Base
   end
 
   def ensure_authentication_token
-    if authentication_token.blank?
-      self.authentication_token = generate_authentication_token
-    end
+    self.authentication_token = generate_authentication_token if authentication_token.blank?
   end
 
   def generate_authentication_token
-    loop do 
+    loop do
       token = Devise.friendly_token
       break token unless User.exists?(authentication_token: token)
     end

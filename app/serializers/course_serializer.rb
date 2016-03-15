@@ -8,7 +8,7 @@ class CourseSerializer < ActiveModel::Serializer
 
   def attributes
     data = super
-    data.merge!(url: url) if current_user.present?
+    data[:url] = url if current_user.present?
 
     data
   end

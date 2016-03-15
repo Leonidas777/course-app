@@ -16,6 +16,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'devise'
 
+gem 'koala'
+gem 'twitter'
+
 gem 'active_model_serializers'
 
 gem 'kaminari'
