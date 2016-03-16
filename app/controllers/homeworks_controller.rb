@@ -1,16 +1,21 @@
 class HomeworksController < ApplicationController
-  before_action :authenticate_user!
+  before_filter :authenticate_user!
 
   def show
   end
 
   def new
     return unless current_user.participate_in?(params[:course_id])
-    @homework = current_user.homeworks.build
+    @homework = current_user.homeworks.build(lesson_id: params[:lesson_id])
   end
 
   def create
-    @homework = current_user.homeworks.where(lesson_id: params[:lesson_id]).first_or_create.update(homework_params)
+    redirect_for_inexisted_lesson if Lesson.find_by_id(params[:lesson_id]).nil?
+
+    @homework = current_user.homeworks.build(homework_params)
+    @homework.lesson_id = params[:lesson_id]
+
+    render :save_error unless @homework.save
   end
 
   def destroy
@@ -18,7 +23,13 @@ class HomeworksController < ApplicationController
 
   private
 
+  def redirect_for_inexisted_lesson
+    flash[:create_err] = "The given lesson_id doesn't exist."
+    flash.keep(:create_err)
+    render js: "window.location = #{courses_path.to_json}"
+  end
+
   def homework_params
-    { lesson_id: params[:lesson_id], hw_text: params[:homework][:hw_text] }
+    params.require(:homework).permit(:content)
   end
 end

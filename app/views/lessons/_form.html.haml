@@ -16,34 +16,4 @@
           = f.input :summary, as: :text, placeholder: 'Compose a short summary about your new lesson', input_html: { class: 'form-control', style: 'height: 140px' }
         .form-group
           = f.input :homework, as: :text, placeholder: 'Compose homework for your students', input_html: { class: 'form-control', style: 'height: 140px' }
-
         = f.submit 'Save', class: 'btn btn-primary'
-
-
-
-
-
-
-/ .box-header.with-border
-/   %h1.box-title Updating the profile data
-/ .row
-/   .col-sm-6.col-md-6.col-lg-3
-/     = simple_form_for current_user, url: users_profile_path do |f|
-/       .box-body
-/         .form-group
-/           = f.input :email, placeholder: 'Enter email', input_html: { class: 'form-control' }
-/         .form-group
-/           = f.input :password, placeholder: 'Password', input_html: { class: 'form-control' }
-/         .form-group
-/           = f.input :password_confirmation, placeholder: 'Password confirmation', input_html: { class: 'form-control' }
-
-/       = f.simple_fields_for :profile do |pf|
-/         .box-body
-/           .form-group
-/             = pf.input :first_name, input_html: { class: 'form-control' }
-/           .form-group
-/             = pf.input :last_name, input_html: { class: 'form-control' }
-/           .form-group
-/             = pf.input :photo, as: :file     
-/       = f.submit 'Save', class: 'btn btn-primary'
-

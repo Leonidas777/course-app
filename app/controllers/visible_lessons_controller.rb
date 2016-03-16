@@ -1,14 +1,12 @@
 class VisibleLessonsController < ApplicationController
-  before_action :authenticate_user!
+  before_filter :authenticate_user!
 
   def create
-    lesson.visible = true
-    lesson.save!
+    lesson.show!
   end
 
   def destroy
-    lesson.visible = false
-    lesson.save!
+    lesson.hide!
   end
 
   private

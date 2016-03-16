@@ -13,9 +13,9 @@
                 %span.username= "#{current_user.first_name} #{current_user.last_name}"
                 %span.description= "Created at #{course.created_at}"
               .box-tools                
-                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                %button.btn.btn-box-tool{ "data-widget": "collapse" }
                   %i.fa.fa-minus
-                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                %button.btn.btn-box-tool{ "data-widget": "remove" }
                   %i.fa.fa-times
             .box-body
               = image_tag course.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Photo'

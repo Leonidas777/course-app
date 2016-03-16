@@ -11,4 +11,9 @@ class Course < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 40 }
 
   mount_uploader :picture, ProjectPictureUploader
+
+  def expel_user(user)
+    course_user_rec = CourseUser.all.where(course_id: id, user_id: user.id).first
+    course_user_rec.block = true if course_user_rec.present?
+  end
 end

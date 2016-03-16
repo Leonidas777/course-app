@@ -2,8 +2,13 @@ class LessonsController < ApplicationController
   PER_PAGE = 6
 
   def index
-    return desc_order_lessons if params[:order] == 'desc'
-    asc_order_lessons
+    sel_lessons = current_course.lessons
+    sel_lessons = if user_signed_in? && current_user.author?(current_course)
+                    sel_lessons.all_by_position
+                  else
+                    sel_lessons.only_visible_by_position
+                  end
+    @lessons = sel_lessons.page(params[:page]).per(params[:per_page] || PER_PAGE)
   end
 
   def show
@@ -31,34 +36,12 @@ class LessonsController < ApplicationController
   private
 
   def lesson_params
-    params.require(:lesson).permit(:title, :picture, :position, :description, :picture, :summary, :homework, :order)
+    params.require(:lesson).permit(:title, :picture, :position, :description, :picture, :summary, :homework)
   end
 
   def current_course
     @current_course ||= Course.find(params[:course_id])
   end
 
-  def asc_order?
-    params[:order] != 'desc'
-  end
-
-  def author?
-    current_user.id == current_course.user.id
-  end
-
-  def desc_order_lessons
-    if user_signed_in? && author?
-      return @lessons = current_course.lessons.desc_order.one_page(params[:page], params[:per_page])
-    end
-    @lessons = current_course.lessons.desc_order.one_page(params[:page], params[:per_page], true)
-  end
-
-  def asc_order_lessons
-    if user_signed_in? && author?
-      return @lessons = current_course.lessons.asc_order.one_page(params[:page], params[:per_page]) if user_signed_in? && author?
-    end
-    @lessons = current_course.lessons.asc_order.one_page(params[:page], params[:per_page], true)
-  end
-
-  helper_method :current_course, :asc_order?, :author?
+  helper_method :current_course
 end

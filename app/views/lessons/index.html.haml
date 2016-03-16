@@ -1,13 +1,7 @@
 .box-header.with-border
   %h1.box-title= "Lessons/\"#{current_course.title}\""
-.row
-  - if @lessons.present?
-    .col-xs-2.col-sm-2.col-md-2.col-lg-2
-      - if asc_order?
-        = link_to 'Set desc order', course_lessons_path(order: 'desc'), class: 'btn btn-block btn-info'
-      - else  
-        = link_to 'Set asc order', course_lessons_path, class: 'btn btn-block btn-info'
-  -if user_signed_in? && author?
+.row  
+  - if user_signed_in? && current_user.author?(current_course)
     .col-xs-2.col-sm-2.col-md-2.col-lg-2
       = link_to 'Add a new lesson',  new_course_lesson_path, class: 'btn btn-block btn-info'
 %section.content  
@@ -24,15 +18,15 @@
                   = lesson.title
                 %span.description "Created at #{lesson.created_at}"
               .box-tools
-                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                %button.btn.btn-box-tool{ "data-widget": "collapse" }
                   %i.fa.fa-minus
-                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                %button.btn.btn-box-tool{ "data-widget": "remove" }
                   %i.fa.fa-times
             .box-body
               = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
-              
+              %span= "Position: #{lesson.position}"
               .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
-                -if user_signed_in? && author?
+                -if user_signed_in? && current_user.author?(current_course)
                   - if lesson.visible?
                     = render 'lessons/invisible_butt', lesson: lesson
                   - else

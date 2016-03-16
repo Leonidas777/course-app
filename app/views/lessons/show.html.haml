@@ -1,23 +1,18 @@
 .box-header.with-border
   %h1.box-title= "Lesson \"#{@lesson.title}\""
-
 = image_tag @lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
-
 %strong
   %i.fa.fa-certificate.margin-r-5
   Description
 %p= @lesson.description
-
 %strong
   %i.fa.fa-book.margin-r-5
   Summary
 %p= @lesson.summary
-
 %strong
   %i.fa.fa-meh-o.margin-r-5
   Homework
 %p= @lesson.homework
-
 - if current_user.present? && current_user.participate_in?(@lesson.course)
-  %a.btn.btn-primary{"data-toggle" => "modal", :href => "#homework-modal"} Send homework
+  %a.btn.btn-primary{ "data-toggle": "modal", href: "#homework-modal" } Send homework
   = render 'homeworks/form', lesson: @lesson

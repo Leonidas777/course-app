@@ -1,6 +1,6 @@
 .box-header.with-border
   %h1.box-title= "Participants of the \"#{course.title}\" course"
-- if user_signed_in? && !blocked_user? && current_user.id != course.user_id
+- if user_signed_in? && !current_user.blocked_in?(course) && current_user.id != course.user_id
   #subscription-button{ style: ('display: none;' if current_user.participate_in?(course.id)) }
     .row
       .col-xs-2.col-sm-2.col-md-2.col-lg-2

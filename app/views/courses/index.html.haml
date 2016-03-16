@@ -1,10 +1,12 @@
 .box-header.with-border
   %h1.box-title All courses
+- if flash[:create_err].present?
+  %h2= flash[:create_err]
 - if @courses.present?
   = paginate @courses
   %section.content
     .row
-      - @courses.each do |course|      
+      - @courses.each do |course|
         .col-md-4
           .box.box-widget
             .box-header.with-border
@@ -21,11 +23,11 @@
               = image_tag course.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Photo'
               %h2= course.title
               .row
-                -if author(course)
+                -if user_signed_in? && current_user.author?(course)
                   .col-xs-6.col-sm-6.col-md-6.col-lg-6
                     = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-block btn-info'
                   .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                    = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'               
+                    = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Lessons', course_lessons_path(course), class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6

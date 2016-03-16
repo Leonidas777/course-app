@@ -1,7 +1,7 @@
 class CourseBlockedUsersController < ApplicationController
   def create
-    course.blocked_users << user
-    course.course_users.where(user_id: user.id).first.destroy
+    course_user_rec = CourseUser.all.where(course_id: params['course_id'], user_id: params['user_id']).first
+    course_user_rec.update!(block: true) if course_user_rec.present?
   end
 
   def destroy

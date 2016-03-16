@@ -25,6 +25,19 @@ class User < ActiveRecord::Base
     course_users.exists?(course_id: course_id)
   end
 
+  def blocked_in?(course)
+    course_user_rec = CourseUser.all.where(course_id: course.id, user_id: id).first
+    course_user_rec.block if course_user_rec.present?
+  end
+
+  def author?(course)
+    id == course.user.id
+  end
+
+  def self.all_unblocked_participants(course)
+    User.joins(:course_users).where(course_users: { course_id: course.id, block: false }).includes(:profile)
+  end
+
   private
 
   def create_user_profile
