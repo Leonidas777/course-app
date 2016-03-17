@@ -1,4 +1,6 @@
 class Lesson < ActiveRecord::Base
+  include AASM
+
   PER_PAGE = 6
   belongs_to :course
   has_many   :homeworks
@@ -30,5 +32,23 @@ class Lesson < ActiveRecord::Base
   def creating_date
     return created_at.strftime('on %B %d, %Y, %I:%M%p') if created_at.present?
     'undefined'
+  end
+
+  aasm column: :state do
+    state :pending, initial: true
+    state :loading
+    state :loaded
+
+    event :material_loading do
+      transitions from: :pending, to: :loading
+    end
+
+    event :material_loaded do
+      transitions from: :loading, to: :loaded
+    end
+
+    event :on_pending do
+      transitions to: :pending
+    end
   end
 end

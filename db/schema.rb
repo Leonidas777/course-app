@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314141815) do
+ActiveRecord::Schema.define(version: 20160317081520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160314141815) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "block",      default: false
   end
 
   add_index "course_users", ["user_id", "course_id"], name: "index_course_users_on_user_id_and_course_id", unique: true, using: :btree
@@ -48,7 +49,7 @@ ActiveRecord::Schema.define(version: 20160314141815) do
   create_table "homeworks", force: :cascade do |t|
     t.integer  "lesson_id"
     t.integer  "user_id"
-    t.string   "hw_text"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,7 +66,10 @@ ActiveRecord::Schema.define(version: 20160314141815) do
     t.datetime "updated_at"
     t.boolean  "visible",     default: true
     t.date     "date"
+    t.string   "state"
   end
+
+  add_index "lessons", ["state"], name: "index_lessons_on_state", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
