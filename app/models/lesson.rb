@@ -40,15 +40,11 @@ class Lesson < ActiveRecord::Base
     state :loaded
 
     event :material_loading do
-      transitions from: :pending, to: :loading
+      transitions to: :loading
     end
 
     event :material_loaded do
       transitions from: :loading, to: :loaded
-    end
-
-    event :on_pending do
-      transitions to: :pending
     end
   end
 end
