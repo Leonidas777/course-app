@@ -12,11 +12,21 @@ class Homework < ActiveRecord::Base
     state :rejected
 
     event :approve do
-      transitions to: :approved
+      transitions to: :approved, after_commit: :homework_approving
     end
 
     event :reject do
-      transitions from: :approved, to: :rejected
+      transitions from: :approved, to: :rejected, after_commit: :homework_rejecting
     end
+  end
+
+  private
+
+  def homework_approving
+    NotificationsMailer.homework_approving(self, user).deliver_now
+  end
+
+  def homework_rejecting
+    NotificationsMailer.homework_rejecting(self, user).deliver_now
   end
 end
