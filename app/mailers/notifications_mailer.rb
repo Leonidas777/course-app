@@ -19,4 +19,11 @@ class NotificationsMailer < ApplicationMailer
     
     mail(to: recipient.email, subject: 'A new material was loaded.')
   end
+
+  def remind_about_lesson(lesson, recipient)
+    @lesson = lesson
+    @recipient = recipient
+    
+    mail(to: recipient.email, subject: 'A lesson is going to start soon.')
+  end
 end

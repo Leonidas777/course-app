@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317092358) do
+ActiveRecord::Schema.define(version: 20160318074511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,9 +67,9 @@ ActiveRecord::Schema.define(version: 20160317092358) do
     t.string   "homework"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "visible",     default: true
-    t.date     "date"
+    t.boolean  "visible",          default: true
     t.string   "state"
+    t.datetime "meeting_datetime"
   end
 
   add_index "lessons", ["state"], name: "index_lessons_on_state", using: :btree

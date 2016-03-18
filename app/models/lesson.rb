@@ -1,5 +1,6 @@
 class Lesson < ActiveRecord::Base
   include AASM
+  require 'date'
 
   PER_PAGE = 6
   belongs_to :course
@@ -11,9 +12,7 @@ class Lesson < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 1000 }
   validates :summary, length: { maximum: 1000 }
-  validates :homework, presence: true, length: { maximum: 1000 }
-
-  after_create :send_notifications
+  validates :homework, presence: true, length: { maximum: 1000 }  
 
   mount_uploader :picture, ProjectPictureUploader
 
@@ -27,12 +26,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def meeting_date
-    return date.strftime('on %B %d, %Y') if date.present?
+    return meeting_datetime.strftime('%I:%M%p on %B %d, %Y') if meeting_datetime.present?
     'undefined'
   end
 
   def creating_date
-    return created_at.strftime('on %B %d, %Y, %I:%M%p') if created_at.present?
+    return created_at.strftime('%I:%M%p on %B %d, %Y, %I:%M%p') if created_at.present?
     'undefined'
   end
 
@@ -45,19 +44,21 @@ class Lesson < ActiveRecord::Base
       transitions to: :loading
     end
 
-    event :material_loaded do 
-      transitions from: :loading, to: :loaded, after_commit: :mail_to_participants
+    event :material_loaded, after_commit: :mail_to_participants_now do 
+      transitions from: :loading, to: :loaded
     end
   end
 
-  def mail_to_participants
-    course.participants.each do |user|
-      NotificationsMailer.loaded_material(self, user).deliver_now
-    end
+  def mail_to_participants_now
+    ScheduleLoadedMaterialNotificationWorker.perform_async(id)
   end
 
-  def send_notifications
-    material_loading
-    material_loaded!
-  end
+  def remind_participants_later
+    notification_time = meeting_datetime - 1.minute
+    if DateTime.now < notification_time
+      course.participants.each do |user|
+        NotificationsMailer.remind_about_lesson(self, user).deliver_later(wait_until: notification_time)
+      end
+    end
+  end  
 end

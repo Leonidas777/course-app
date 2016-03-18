@@ -6,7 +6,7 @@ class Api::V1::AuthTokensController < ActionController::Base
       auth_token = authenticate_through_social_network
     end
 
-    render json: { success: true, auth_token: auth_token }, status: 200 if auth_token.present?
+    render json: { success: true, auth_token: auth_token }, status: 201 if auth_token.present?
     raise NotAuthorized
   end
 
