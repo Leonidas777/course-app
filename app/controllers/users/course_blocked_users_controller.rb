@@ -1,6 +1,7 @@
-class CourseBlockedUsersController < ApplicationController
+class Users::CourseBlockedUsersController < Users::BaseController
   def create
-    course_user_rec = CourseUser.all.where(course_id: params['course_id'], user_id: params['user_id']).first
+    return unless current_user.author?(course)
+    course_user_rec = CourseUser.all.where(course_id: params[:course_id], user_id: params[:user_id]).first
     course_user_rec.update!(block: true) if course_user_rec.present?
   end
 
@@ -16,6 +17,5 @@ class CourseBlockedUsersController < ApplicationController
   def user
     @user ||= User.find(params[:user_id])
   end
-
   helper_method :user
 end

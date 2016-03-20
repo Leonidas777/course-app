@@ -8,4 +8,4 @@
     - if user_signed_in? && current_user.id == course.user_id
       .row
         .col-xs-4.col-sm-4.col-md-4.col-lg-4
-          = link_to 'Expel', course_blocked_users_path(user_id: user.id), class: 'btn btn-block btn-info', method: :post, remote: true
+          = link_to 'Expel', users_course_blocked_users_path(course_id: course.id, user_id: user.id), class: 'btn btn-block btn-info', method: :post, remote: true

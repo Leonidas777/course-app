@@ -10,7 +10,7 @@ class HomeworksController < ApplicationController
   end
 
   def create
-    redirect_for_inexisted_lesson if Lesson.find_by_id(params[:lesson_id]).nil?
+    Lesson.find_by_id(params[:lesson_id])
 
     @homework = current_user.homeworks.build(homework_params)
     @homework.lesson_id = params[:lesson_id]
@@ -22,12 +22,6 @@ class HomeworksController < ApplicationController
   end
 
   private
-
-  def redirect_for_inexisted_lesson
-    flash[:create_err] = "The given lesson_id doesn't exist."
-    flash.keep(:create_err)
-    render js: "window.location = #{courses_path.to_json}"
-  end
 
   def homework_params
     params.require(:homework).permit(:content)

@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def author?(course)
-    id == course.user.id
+    courses.find_by_id(course.id).present?
   end
 
   def self.all_unblocked_participants(course)

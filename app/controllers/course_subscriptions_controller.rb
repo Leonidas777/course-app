@@ -1,14 +1,13 @@
 class CourseSubscriptionsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :current_user_is_blocked
 
   def create
-    return course.participants << current_user unless current_user.blocked_in?(course)
-    redirect_for_blocked_user("A blocked user can't subscribe on course.")
+    course.participants << current_user
   end
 
   def destroy
-    return course.course_users.where(user_id: current_user.id).first.destroy unless current_user.blocked_in?(course)
-    redirect_for_blocked_user("A blocked user can't unsubscribe on course.")
+    course.course_users.where(user_id: current_user.id).first.destroy
   end
 
   private
@@ -16,12 +15,9 @@ class CourseSubscriptionsController < ApplicationController
   def course
     @course ||= Course.find(params[:course_id])
   end
-
-  def redirect_for_blocked_user(message)
-    flesh[:blocked_user_error] = message
-    flash.keep(:blocked_user_error)
-    render js: "window.location = #{courses_path.to_json}"
-  end
-
   helper_method :course
+
+  def current_user_is_blocked
+    render :baned_user if current_user.blocked_in?(course)
+  end
 end

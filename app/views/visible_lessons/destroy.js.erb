@@ -1,2 +1,2 @@
-$('#lesson_buttons-<%= lesson.attributes['id'] %>').prepend('<%= j render('lessons/visible_butt', lesson: lesson)%>');
+$('#lesson_buttons-<%= lesson.attributes['id'] %>').prepend('<%= j render('users/lessons/visible_butt', lesson: lesson)%>');
 $('#lesson-<%= lesson.attributes['id'] %>-invisible-butt').remove();

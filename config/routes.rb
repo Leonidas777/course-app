@@ -11,15 +11,16 @@ Rails.application.routes.draw do
     resources :participants, only: [:index, :destroy]
     resource  :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
     resources :visible_lessons, only: [:create, :destroy], controller: :visible_lessons
-    resources :lessons do
-      resources :homeworks, only: [:new, :create, :show, :destroy]
-    end
-    resources :blocked_users, only: [:create], controller: :course_blocked_users
+    resources :lessons, only: [:index, :show]
   end
 
   namespace :users do
     resource  :profile, only: [:edit, :update], controller: :profile
     resources :courses
+    resources :course_blocked_users, only: [:create]
+    resources :lessons do
+      resources :homeworks, only: [:new, :create, :show, :destroy]
+    end
   end
 
   # Example of regular route:

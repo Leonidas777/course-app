@@ -1,6 +1,9 @@
 .box-header.with-border
   %h1.box-title= "Lessons/\"#{current_course.title}\""
-.row
+.row  
+  - if current_user.author?(current_course)
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      = link_to 'Add a new lesson',  new_users_lesson_path, class: 'btn btn-block btn-info'
 %section.content  
   - if @lessons.present?
     = paginate @lessons
@@ -23,8 +26,13 @@
               = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
               %span= "Position: #{lesson.position}"
               .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
+                -if current_user.author?(current_course)
+                  - if lesson.visible?
+                    = render 'users/lessons/invisible_butt', lesson: lesson
+                  - else
+                    = render 'users/lessons/visible_butt', lesson: lesson
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
-                  = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'
+                  = link_to 'See', users_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'
     = paginate @lessons
   - else
     %h2 No lessons
