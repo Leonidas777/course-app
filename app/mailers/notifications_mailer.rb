@@ -1,16 +1,16 @@
 class NotificationsMailer < ApplicationMailer
-  def approved_homework(homework, recipient)
+  def approved_homework(homework)
     @homework = homework
-    @recipient = recipient
+    @recipient = homework.user
     
-    mail(to: recipient.email, subject: 'A homework was approved.')
+    mail(to: homework.user.email, subject: 'A homework was approved.')
   end
 
-  def rejected_homework(homework, recipient)
+  def rejected_homework(homework)
     @homework = homework
-    @recipient = recipient
+    @recipient = homework.user
     
-    mail(to: recipient.email, subject: 'A homework was rejected.')
+    mail(to: homework.user.email, subject: 'A homework was rejected.')
   end
 
   def loaded_material(lesson, recipient)

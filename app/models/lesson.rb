@@ -1,6 +1,7 @@
 class Lesson < ActiveRecord::Base
   include AASM
   require 'date'
+  NOTIF_DAYS_BEFORE = 3
 
   PER_PAGE = 6
   belongs_to :course
@@ -44,9 +45,14 @@ class Lesson < ActiveRecord::Base
       transitions to: :loading
     end
 
-    event :material_loaded, after_commit: :mail_to_participants_now do 
+    event :material_loaded, after_commit: :notify_participants do 
       transitions from: :loading, to: :loaded
     end
+  end
+
+  def notify_participants
+    mail_to_participants_now
+    remind_participants_later
   end
 
   def mail_to_participants_now
@@ -54,11 +60,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def remind_participants_later
-    notification_time = meeting_datetime - 1.minute
+    notification_time = meeting_datetime - NOTIF_DAYS_BEFORE.minute
     if DateTime.now < notification_time
-      course.participants.each do |user|
-        NotificationsMailer.remind_about_lesson(self, user).deliver_later(wait_until: notification_time)
-      end
+      ScheduleRemindAboutLessonNotificationWorker.perform_async(id, notification_time)
     end
   end  
 end
