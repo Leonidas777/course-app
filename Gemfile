@@ -16,6 +16,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'devise'
 
+gem 'cancancan'
+
 gem 'kaminari'
 
 gem 'carrierwave', '0.9.0'

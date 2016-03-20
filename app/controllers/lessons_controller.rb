@@ -1,4 +1,6 @@
 class LessonsController < ApplicationController
+  before_filter :load_lesson, only: :show
+  authorize_resource only: :show
   PER_PAGE = 6
 
   def index
@@ -7,7 +9,6 @@ class LessonsController < ApplicationController
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
   end
 
   def new
@@ -61,4 +62,12 @@ class LessonsController < ApplicationController
   end
 
   helper_method :current_course, :asc_order?, :author?
+
+  def load_lesson
+    @lesson = Lesson.find(params[:id])
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, params[:shared_key])
+  end
 end
