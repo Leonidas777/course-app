@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :subscribed_courses, only: [:index]
 
     resources :activities, only: :index
+    resource  :email, only: [:new, :create]
   end
 
   # Example of regular route:

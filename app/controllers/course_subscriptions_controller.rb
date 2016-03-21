@@ -2,6 +2,8 @@ class CourseSubscriptionsController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    redirect_to users_email_path(course) unless current_user.email.present?
+
     course.participants << current_user
   end
 
