@@ -1,7 +1,7 @@
 class Lesson < ActiveRecord::Base
   include AASM
-  require 'date'
-  NOTIF_DAYS_BEFORE = 3
+
+  NOTIF_DAYS_BEFORE = 1
 
   PER_PAGE = 6
   belongs_to :course
@@ -60,8 +60,9 @@ class Lesson < ActiveRecord::Base
   end
 
   def remind_participants_later
-    notification_time = meeting_datetime - NOTIF_DAYS_BEFORE.minute
-    if DateTime.now < notification_time
+    return unless meeting_datetime.present?
+    notification_time = meeting_datetime - NOTIF_DAYS_BEFORE.day
+    if Time.zone.now <= notification_time
       ScheduleRemindAboutLessonNotificationWorker.perform_async(id, notification_time)
     end
   end  
