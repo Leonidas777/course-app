@@ -1,0 +1,8 @@
+%tr
+  %td= activity.id
+  %td= "Lesson \"#{activity.trackable.title}\""
+  %td= "#{activity.owner.first_name} #{activity.owner.last_name}"
+  %td= activity.creating_date
+  %td                
+    %span.label{class: "label-#{activity.define_html_status_class_name}"}= activity.define_status_name
+  %td= activity.message

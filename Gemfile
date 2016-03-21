@@ -7,6 +7,7 @@ gem 'uglifier'
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'simple_form'
+gem 'draper'
 gem 'aasm'
 
 gem 'pg', '0.17.1'

@@ -6,6 +6,7 @@ class Lesson < ActiveRecord::Base
   PER_PAGE = 6
   belongs_to :course
   has_many   :homeworks
+  has_many   :activities, as: :trackable
 
   scope :desc_order, -> { order(created_at: :desc) }
   scope :asc_order, -> { order(created_at: :asc) }
@@ -27,12 +28,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def meeting_date
-    return meeting_datetime.strftime('%I:%M%p on %B %d, %Y') if meeting_datetime.present?
+    return meeting_datetime.strftime('at %I:%M%p, %B %d, %Y') if meeting_datetime.present?
     'undefined'
   end
 
   def creating_date
-    return created_at.strftime('%I:%M%p on %B %d, %Y, %I:%M%p') if created_at.present?
+    return created_at.strftime('at %I:%M%p, %B %d, %Y') if created_at.present?
     'undefined'
   end
 

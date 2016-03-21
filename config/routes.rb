@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     resource  :profile, only: [:edit, :update], controller: :profile
     resources :courses
     resources :subscribed_courses, only: [:index]
+
+    resources :activities, only: :index
   end
 
   # Example of regular route:

@@ -12,10 +12,11 @@ class User < ActiveRecord::Base
   has_many :authored_courses, class_name: 'Course', foreign_key: :user_id, dependent: :destroy
   has_many :social_profiles
   has_many :course_users
-  has_many :participated_courses, through: :course_users, source: :course
-
+  has_many :participated_courses, through: :course_users, source: :course  
   has_many :homeworks
   has_many :blocked_users_courses, through: :course_blocked_user, source: :course
+  has_many :activities_for_me,  class_name: 'Activity', foreign_key: :recipient_id
+  has_many :activities_from_me, class_name: 'Activity', foreign_key: :owner_id
 
   before_save  :ensure_authentication_token
   after_create :create_user_profile
