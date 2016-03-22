@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     course_users.exists?(course_id: course_id)
   end
 
+  def has_email?
+    email.present?
+  end
+
   private
 
   def create_user_profile

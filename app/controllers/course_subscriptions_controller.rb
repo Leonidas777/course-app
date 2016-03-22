@@ -1,8 +1,13 @@
 class CourseSubscriptionsController < ApplicationController
   before_action :authenticate_user!
 
-  def create
-    redirect_to users_email_path(course) unless current_user.email.present?
+  def create    
+    unless current_user.email.present?
+      return render :open_email_form if params[:user].nil? || params[:user][:email].nil?
+
+      current_user.update(user_params)
+      return render :email_saving_error unless current_user.save(validate: false)
+    end
 
     course.participants << current_user
   end
@@ -12,6 +17,10 @@ class CourseSubscriptionsController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:email)
+  end
 
   def course
     @course ||= Course.find(params[:course_id])
