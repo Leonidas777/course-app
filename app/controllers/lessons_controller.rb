@@ -4,7 +4,7 @@ class LessonsController < ApplicationController
   PER_PAGE = 6
 
   def index
-    @lessons = current_course.lessons.only_visible_by_position.page(params[:page]).per(params[:per_page] || PER_PAGE)
+    @lessons = current_course.lessons.only_visible_by_position.includes(:course).page(params[:page]).per(params[:per_page] || PER_PAGE)
   end
 
   def show

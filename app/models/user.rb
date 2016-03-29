@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
       token = Devise.friendly_token
       break token unless User.exists?(authentication_token: token)
     end
+  end
 
   def set_default_role
     add_role :user
