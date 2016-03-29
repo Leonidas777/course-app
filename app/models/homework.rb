@@ -5,6 +5,7 @@ class Homework < ActiveRecord::Base
   belongs_to :lesson
 
   validates :hw_text, presence: true, length: { maximum: 1000 }
+  validates :content, presence: true
 
   aasm column: :state do
     state :pending, initial: true
@@ -28,5 +29,5 @@ class Homework < ActiveRecord::Base
 
   def homework_rejecting
     NotificationsMailer.homework_rejecting(self, user).deliver_now
-  end
+  end  
 end

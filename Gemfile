@@ -30,6 +30,7 @@ gem 'koala'
 gem 'twitter'
 
 gem 'active_model_serializers'
+gem 'cancancan'
 
 gem 'kaminari'
 

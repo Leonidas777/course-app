@@ -13,9 +13,9 @@
                 %span.username= "#{current_user.first_name} #{current_user.last_name}"
                 %span.description= "Created at: #{course.creating_date}"
               .box-tools                
-                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                %button.btn.btn-box-tool{ "data-widget": "collapse" }
                   %i.fa.fa-minus
-                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                %button.btn.btn-box-tool{ "data-widget": "remove" }
                   %i.fa.fa-times
             .box-body
               = image_tag course.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Photo'
@@ -26,7 +26,7 @@
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
-                  = link_to 'Lessons', course_lessons_path(course), class: 'btn btn-block btn-info'
+                  = link_to 'Lessons', users_lessons_path(course_id: course.id), class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Participants', course_participants_path(course), class: 'btn btn-block btn-info'
   = paginate @courses  

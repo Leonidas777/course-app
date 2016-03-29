@@ -19,7 +19,11 @@ class User < ActiveRecord::Base
   has_many :activities_from_me, class_name: 'Activity', foreign_key: :owner_id
 
   before_save  :ensure_authentication_token
-  after_create :create_user_profile
+  after_create do 
+    create_user_profile
+    set_default_role
+  end
+
   accepts_nested_attributes_for :profile, allow_destroy: true
 
   delegate :first_name, :last_name, :photo, to: :profile, allow_nil: true
@@ -32,13 +36,26 @@ class User < ActiveRecord::Base
     email.present?
   end
 
+  def blocked_in?(course)
+    course_user_rec = CourseUser.all.where(course_id: course.id, user_id: id).first
+    course_user_rec.block if course_user_rec.present?
+  end
+
+  def author?(course)
+    courses.find_by_id(course.id).present?
+  end
+
+  def self.all_unblocked_participants(course)
+    User.joins(:course_users).where(course_users: { course_id: course.id, block: false }).includes(:profile)
+  end
+
   private
 
   def create_user_profile
     build_profile
     profile.save(validates: false)
   end
-
+  
   def ensure_authentication_token
     self.authentication_token = generate_authentication_token if authentication_token.blank?
   end
@@ -48,5 +65,8 @@ class User < ActiveRecord::Base
       token = Devise.friendly_token
       break token unless User.exists?(authentication_token: token)
     end
+
+  def set_default_role
+    add_role :user
   end
 end
