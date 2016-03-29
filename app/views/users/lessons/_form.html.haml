@@ -1,6 +1,6 @@
 .row
   .col-sm-6.col-md-6.col-lg-6
-    = simple_form_for [:course, lesson] do |f|
+    = simple_form_for  :lesson, url: users_lessons_path(lesson, course_id: current_course.id) do |f|
       .box-body
         .form-group
           = f.input :title, placeholder: 'Enter title', input_html: { class: 'form-control' }
