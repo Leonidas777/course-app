@@ -18,7 +18,7 @@ class Users::LessonsController < Users::BaseController
     @lesson = current_course.lessons.build(lesson_params)
 
     if @lesson.save!
-      redirect_to course_lessons_path
+      redirect_to users_lessons_path(course_id: current_course.id)
     else
       render :new
     end
