@@ -1,4 +1,5 @@
-%h1 Courses
+.box-header.with-border
+  %h1.box-title My courses
 - if @courses.present?
   = paginate @courses
   %section.content
@@ -8,25 +9,26 @@
           .box.box-widget
             .box-header.with-border
               .user-block
-                = image_tag 'user2-160x160.jpg', class: 'img-circle', alt: 'User Image'
-                %span.username
-                  %a{:href => "#"} Jonathan Burke Jr.
-                %span.description Shared publicly - 7:30 PM Today
-              .box-tools
-                %button.btn.btn-box-tool{"data-toggle" => "tooltip", :title => "Mark as read"}
-                  %i.fa.fa-circle-o
-                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                = image_tag current_user.profile.photo.thumb_40x40, class: 'img-circle', alt: 'User Image'
+                %span.username= "#{current_user.first_name} #{current_user.last_name}"
+                %span.description= "Created at #{course.created_at}"
+              .box-tools                
+                %button.btn.btn-box-tool{ "data-widget": "collapse" }
                   %i.fa.fa-minus
-                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                %button.btn.btn-box-tool{ "data-widget": "remove" }
                   %i.fa.fa-times
             .box-body
-              = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
+              = image_tag course.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Photo'
               %h2= course.title
               .row
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-block btn-info'
                 .col-xs-6.col-sm-6.col-md-6.col-lg-6
                   = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'
-  = paginate @courses
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Lessons', users_lessons_path(course_id: course.id), class: 'btn btn-block btn-info'
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Participants', course_participants_path(course), class: 'btn btn-block btn-info'
+  = paginate @courses  
 - else
   %h2 No courses

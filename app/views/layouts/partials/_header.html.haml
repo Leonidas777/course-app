@@ -2,16 +2,16 @@
   = link_to root_path, class: 'logo' do
     %span.logo-mini Rubyboost
     %span.logo-lg Rubyboost
-  %nav.navbar.navbar-static-top{:role => "navigation"}
-    %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+  %nav.navbar.navbar-static-top{ role: "navigation" }
+    %a.sidebar-toggle{ "data-toggle": "offcanvas", href: "#", role: "button" }
       %span.sr-only Toggle navigation
     .navbar-custom-menu
       %ul.nav.navbar-nav
         - if user_signed_in?
           %li.user.user-menu
-            = link_to users_courses_path do
-              = image_tag 'user2-160x160.jpg', class: 'user-image', alt: 'User image'
-              %span.hidden-xs= current_user.email
+            = link_to edit_users_profile_path do
+              = image_tag current_user.profile.photo.thumb_40x40, class: 'user-image', alt: 'User image'
+              %span.hidden-xs= "#{current_user.first_name} #{current_user.last_name}"
           %li.user.user-menu
             = link_to destroy_user_session_path, method: :delete, class: 'btn btn-warning' do
               %span.hidden-xs Sign Out
@@ -22,3 +22,7 @@
           %li.user.user-menu
             = link_to new_user_session_path, class: 'btn btn-success' do
               %span.hidden-xs Sign In
+          %li.user.user-menu
+            = link_to 'Login Facebook', user_omniauth_authorize_path(provider: 'facebook')
+          %li.user.user-menu
+            = link_to 'Login Twitter', user_omniauth_authorize_path(provider: 'twitter')

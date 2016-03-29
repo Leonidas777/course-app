@@ -1,0 +1,38 @@
+.box-header.with-border
+  %h1.box-title= "Lessons/\"#{current_course.title}\""
+.row  
+  - if current_user.author?(current_course)
+    .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      = link_to 'Add a new lesson',  new_users_lesson_path, class: 'btn btn-block btn-info'
+%section.content  
+  - if @lessons.present?
+    = paginate @lessons
+    .row
+      - @lessons.each do |lesson|
+        .col-md-4
+          .box.box-widget
+            .box-header.with-border
+              .user-block
+                = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
+                %span.username
+                  = lesson.title
+                %span.description "Created at #{lesson.created_at}"
+              .box-tools
+                %button.btn.btn-box-tool{ "data-widget": "collapse" }
+                  %i.fa.fa-minus
+                %button.btn.btn-box-tool{ "data-widget": "remove" }
+                  %i.fa.fa-times
+            .box-body
+              = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
+              %span= "Position: #{lesson.position}"
+              .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
+                -if current_user.author?(current_course)
+                  - if lesson.visible?
+                    = render 'users/lessons/invisible_butt', lesson: lesson
+                  - else
+                    = render 'users/lessons/visible_butt', lesson: lesson
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
+                  = link_to 'See', users_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'
+    = paginate @lessons
+  - else
+    %h2 No lessons

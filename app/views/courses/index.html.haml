@@ -1,31 +1,37 @@
-%h1 Courses
+.box-header.with-border
+  %h1.box-title All courses
+- if flash[:create_err].present?
+  %h2= flash[:create_err]
 - if @courses.present?
+  = paginate @courses
   %section.content
     .row
-      - @courses.each do |course|      
+      - @courses.each do |course|
         .col-md-4
           .box.box-widget
             .box-header.with-border
               .user-block
-                = image_tag 'user2-160x160.jpg', class: 'img-circle', alt: 'User Image'
-                %span.username
-                  %a{:href => "#"} Jonathan Burke Jr.
-                %span.description Shared publicly - 7:30 PM Today
-              / /.user-block
+                = image_tag course.user.profile.photo.thumb_40x40, class: 'img-circle', alt: 'User Image'
+                %span.username= "#{course.user.first_name} #{course.user.last_name}"
+                %span.description= "Created at #{course.created_at}"
               .box-tools
-                %button.btn.btn-box-tool{"data-toggle" => "tooltip", :title => "Mark as read"}
-                  %i.fa.fa-circle-o
-                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                %button.btn.btn-box-tool{"data-widget": "collapse"}
                   %i.fa.fa-minus
-                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                %button.btn.btn-box-tool{"data-widget": "remove"}
                   %i.fa.fa-times
-              / /.box-tools
-            / /.box-header
             .box-body
-              = image_tag course.picture.thumb, class: 'img-responsive pad', alt: 'Photo'
-              %h2= course.title              
-            / /.box-body
-        / ./col
+              = image_tag course.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Photo'
+              %h2= course.title
+              .row
+                -if user_signed_in? && current_user.author?(course)
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                    = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-block btn-info'
+                  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                    = link_to 'Delete', users_course_path(course), method: :delete, class: 'btn btn-block btn-info'
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Lessons', course_lessons_path(course), class: 'btn btn-block btn-info'
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6
+                  = link_to 'Participants', course_participants_path(course), class: 'btn btn-block btn-info'
   = paginate @courses
 - else
   %h2 No courses

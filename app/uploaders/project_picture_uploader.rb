@@ -1,9 +1,8 @@
 class ProjectPictureUploader < BaseUploader
-  version :admin_thumb do
-    process resize_and_pad: [140, 100]
+  version :thumb_323x323 do
+    process resize_and_pad: [323, 323]
   end
-
-  version :thumb do
-    process resize_and_pad: [450, 450]
+  version :thumb_40x40 do
+    process resize_and_pad: [40, 40]
   end
 end

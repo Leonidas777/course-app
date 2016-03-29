@@ -27,3 +27,7 @@ public/system
 public/uploads
 
 .rubocop_todo.yml
+
+.env
+
+config/hirb.yml

@@ -1,0 +1,30 @@
+.box-header.with-border
+  %h1.box-title= "Lessons/\"#{current_course.title}\""
+.row
+%section.content  
+  - if @lessons.present?
+    = paginate @lessons
+    .row
+      - @lessons.each do |lesson|
+        .col-md-4
+          .box.box-widget
+            .box-header.with-border
+              .user-block
+                = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
+                %span.username
+                  = lesson.title
+                %span.description "Created at #{lesson.created_at}"
+              .box-tools
+                %button.btn.btn-box-tool{ "data-widget": "collapse" }
+                  %i.fa.fa-minus
+                %button.btn.btn-box-tool{ "data-widget": "remove" }
+                  %i.fa.fa-times
+            .box-body
+              = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
+              %span= "Position: #{lesson.position}"
+              .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
+                .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
+                  = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'
+    = paginate @lessons
+  - else
+    %h2 No lessons

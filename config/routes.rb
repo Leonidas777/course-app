@@ -5,12 +5,22 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :courses, only: :index
+  resources :courses do
+    resources :participants, only: [:index, :destroy]
+    resource  :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
+    resources :visible_lessons, only: [:create, :destroy], controller: :visible_lessons
+    resources :lessons, only: [:index, :show]
+  end
 
   namespace :users do
+    resource  :profile, only: [:edit, :update], controller: :profile
     resources :courses
+    resources :course_blocked_users, only: [:create]
+    resources :lessons do
+      resources :homeworks, only: [:new, :create, :show, :destroy]
+    end
   end
 
   # Example of regular route:

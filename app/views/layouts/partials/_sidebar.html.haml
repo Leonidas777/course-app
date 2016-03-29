@@ -3,17 +3,17 @@
     - if user_signed_in?
       .user-panel
         .pull-left.image
-          = image_tag 'user2-160x160.jpg', class: 'img-circle', alt: 'User Image'
+          = image_tag current_user.profile.photo.thumb_40x40, class: 'img-circle', alt: 'User Image'
         .pull-left.info
-          %p= current_user.email
-          %a{:href => "#"}
+          %p= "#{current_user.first_name} #{current_user.last_name}"
+          %a{ href: "#" }
             %i.fa.fa-circle.text-success
             Online
-    %form.sidebar-form{:action => "#", :method => "get"}
+    %form.sidebar-form{action: "#", method: "get"}
       .input-group
-        %input.form-control{:name => "q", :placeholder => "Search...", :type => "text"}/
+        %input.form-control{name: "q", placeholder: "Search...", type: "text"}
         %span.input-group-btn
-          %button#search-btn.btn.btn-flat{:name => "search", :type => "submit"}
+          %button#search-btn.btn.btn-flat{name: "search", type: "submit"}
             %i.fa.fa-search
     %ul.sidebar-menu
       %li.header MAIN NAVIGATION
@@ -23,9 +23,19 @@
           %span Dashboard
           %i.fa.fa-angle-left.pull-right
       %li
-        = link_to users_courses_path do
+        = link_to courses_path do
           %i.fa.fa-files-o
-          %span Courses
+          %span All courses
       - if user_signed_in?
         %li
-          = link_to 'New course', new_users_course_path
+          = link_to users_courses_path do
+            %i.fa.fa-briefcase
+            %span My courses
+        %li
+          = link_to new_users_course_path do
+            %i.fa.fa-cube
+            %span New course
+        %li
+          =link_to edit_users_profile_path do
+            %i.fa.fa-user.fa-fw
+            %span Edit profile
