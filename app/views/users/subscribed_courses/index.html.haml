@@ -1,0 +1,15 @@
+.box-header.with-border
+  %h1.box-title Subscribed courses
+%table.table.table-bordered
+  %tbody#subscribed-courses-list
+    %tr
+      %th Course name
+      %th Author
+      %th Participants      
+    - @courses.each do |course|
+      %tr{id: "subscribed-course-#{course.id}"}
+        %td
+          = course.title        
+        %td= "#{course.user.first_name} #{course.user.last_name}"
+        %td
+          = link_to 'participants', course_participants_path(course)

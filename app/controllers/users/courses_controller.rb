@@ -8,16 +8,20 @@ class Users::CoursesController < Users::BaseController
   end
 
   def new
-    @course = current_user.authored_courses.build
+    return @course = current_user.authored_courses.build if current_user.has_role? :trainer
+    redirect_after_creating 'Only trainer can add a new course.'
   end
 
   def create
-    @course = current_user.authored_courses.build(course_params)
-
-    if @course.save
-      redirect_to users_courses_path
+    if current_user.has_role? :trainer
+      @course = current_user.authored_courses.build(course_params)
+      if @course.save
+        redirect_after_creating 'The course was successfully added.'
+      else
+        render :new
+      end
     else
-      render :new
+      redirect_after_creating 'Only trainer can add a new course.'
     end
   end
 
@@ -46,5 +50,10 @@ class Users::CoursesController < Users::BaseController
 
   def find_course
     @course = current_user.authored_courses.find(params[:id])
+  end
+
+  def redirect_after_creating(message)
+    flash['new_course'] = message
+    redirect_to users_courses_path
   end
 end

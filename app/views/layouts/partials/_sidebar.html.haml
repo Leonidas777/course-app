@@ -31,11 +31,16 @@
           = link_to users_courses_path do
             %i.fa.fa-briefcase
             %span My courses
-        %li
-          = link_to new_users_course_path do
-            %i.fa.fa-cube
-            %span New course
+        - if current_user.has_role? :trainer
+          %li
+            = link_to new_users_course_path do
+              %i.fa.fa-cube
+              %span New course
         %li
           =link_to edit_users_profile_path do
             %i.fa.fa-user.fa-fw
             %span Edit profile
+        %li
+          =link_to users_subscribed_courses_path do
+            %i.fa.fa-coffee
+            %span My private office

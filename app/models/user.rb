@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify role_cname: 'Roke'
   include Omniauthable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -16,7 +17,10 @@ class User < ActiveRecord::Base
   has_many :homeworks
   has_many :blocked_users_courses, through: :course_blocked_user, source: :course
 
-  after_create :create_user_profile
+  after_create do 
+    create_user_profile
+    set_default_role
+  end
   accepts_nested_attributes_for :profile, allow_destroy: true
 
   delegate :first_name, :last_name, :photo, to: :profile, allow_nil: true
@@ -43,5 +47,9 @@ class User < ActiveRecord::Base
   def create_user_profile
     build_profile
     profile.save(validates: false)
+  end
+
+  def set_default_role
+    add_role :user
   end
 end

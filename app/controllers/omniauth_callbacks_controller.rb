@@ -21,6 +21,7 @@ class OmniauthCallbacksController < ApplicationController
 
   def sign_in_with_oauth_data(data)
     user = User.find_or_create_with_oauth(data)
+    user.add_role :user
     sign_in :user, user
   end
 end
