@@ -24,4 +24,9 @@ class LessonsController < ApplicationController
   def current_ability
     @current_ability ||= Ability.new(current_user, params[:shared_key])
   end
+
+  def author?
+   current_user.id == current_course.user.id
+  end
+  helper_method :author?
 end
