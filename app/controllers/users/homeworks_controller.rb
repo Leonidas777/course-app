@@ -1,4 +1,4 @@
-class HomeworksController < ApplicationController
+class Users::HomeworksController < Users::BaseController
   before_filter :authenticate_user!
 
   def show
@@ -10,10 +10,10 @@ class HomeworksController < ApplicationController
   end
 
   def create
-    Lesson.find_by_id(params[:lesson_id])
+    lesson = Lesson.find(params[:lesson_id])
 
     @homework = current_user.homeworks.build(homework_params)
-    @homework.lesson_id = params[:lesson_id]
+    @homework.lesson = lesson
 
     render :save_error unless @homework.save
   end

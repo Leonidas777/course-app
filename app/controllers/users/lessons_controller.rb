@@ -2,13 +2,8 @@ class Users::LessonsController < Users::BaseController
   PER_PAGE = 6
 
   def index
-    sel_lessons = current_course.lessons.includes(:course)
-    sel_lessons = if current_user.author?(current_course)
-                    sel_lessons.all_by_position
-                  else
-                    sel_lessons.only_visible_by_position
-                  end
-    @lessons = sel_lessons.page(params[:page]).per(params[:per_page] || PER_PAGE)
+    @lessons = current_user.courses.find(current_course).lessons.all_by_position.includes(:course).
+      page(params[:page]).per(params[:per_page] || PER_PAGE)
   end
 
   def show
@@ -40,8 +35,7 @@ class Users::LessonsController < Users::BaseController
   end
 
   def current_course
-    @current_course ||= Course.find(params[:course_id])
+    @current_course ||= current_user.courses.find(params[:course_id])
   end
-
   helper_method :current_course
 end

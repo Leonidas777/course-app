@@ -13,6 +13,3 @@
   %i.fa.fa-meh-o.margin-r-5
   Homework
 %p= @lesson.homework
-- if current_user.present? && current_user.participate_in?(@lesson.course)
-  %a.btn.btn-primary{ "data-toggle": "modal", href: "#homework-modal" } Send homework
-  = render 'homeworks/form', lesson: @lesson
