@@ -26,12 +26,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def meeting_date
-    return meeting_datetime.strftime('at %I:%M%p, %B %d, %Y') if meeting_datetime.present?
+    return meeting_datetime.strftime('%I:%M%p, %B %d, %Y') if meeting_datetime.present?
     'undefined'
   end
 
   def creating_date
-    return created_at.strftime('at %I:%M%p, %B %d, %Y') if created_at.present?
+    return created_at.strftime('%I:%M%p, %B %d, %Y') if created_at.present?
     'undefined'
   end
 
