@@ -2,8 +2,7 @@ class Users::LessonsController < Users::BaseController
   PER_PAGE = 6
 
   def index
-    @lessons = current_user.courses.find(current_course).lessons.all_by_position.includes(:course).
-      page(params[:page]).per(params[:per_page] || PER_PAGE)
+    @lessons = current_user.courses.find(current_course).lessons.all_by_position.includes(:course).page(params[:page]).per(params[:per_page] || PER_PAGE)
   end
 
   def show

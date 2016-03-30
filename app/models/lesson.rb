@@ -44,7 +44,7 @@ class Lesson < ActiveRecord::Base
       transitions to: :loading
     end
 
-    event :material_loaded, after_commit: :notify_participants do 
+    event :material_loaded, after_commit: :notify_participants do
       transitions from: :loading, to: :loaded
     end
   end
@@ -64,5 +64,5 @@ class Lesson < ActiveRecord::Base
     if Time.zone.now <= notification_time
       ScheduleRemindAboutLessonNotificationWorker.perform_async(id, notification_time)
     end
-  end  
+  end
 end

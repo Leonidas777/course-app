@@ -12,14 +12,14 @@ class User < ActiveRecord::Base
   has_many :authored_courses, class_name: 'Course', foreign_key: :user_id, dependent: :destroy
   has_many :social_profiles
   has_many :course_users
-  has_many :participated_courses, through: :course_users, source: :course  
+  has_many :participated_courses, through: :course_users, source: :course
   has_many :homeworks
   has_many :blocked_users_courses, through: :course_blocked_user, source: :course
   has_many :activities_for_me,  class_name: 'Activity', foreign_key: :recipient_id
   has_many :activities_from_me, class_name: 'Activity', foreign_key: :owner_id
 
   before_save  :ensure_authentication_token
-  after_create do 
+  after_create do
     create_user_profile
     set_default_role
   end
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     course_users.exists?(course_id: course_id)
   end
 
-  def has_email?
+  def email?
     email.present?
   end
 
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
     build_profile
     profile.save(validates: false)
   end
-  
+
   def ensure_authentication_token
     self.authentication_token = generate_authentication_token if authentication_token.blank?
   end

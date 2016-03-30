@@ -12,5 +12,5 @@
       %th Action
     - @users.each do |user|
       = render 'participant', course: course, user: user
-- if current_user.present? && !current_user.has_email?
+- if current_user.present? && !current_user.email?
   = render 'email_form', course: course

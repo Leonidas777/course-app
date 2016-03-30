@@ -20,7 +20,7 @@ module SimpleResource
     alias :new! :new
 
     def create(options={}, &block)
-      save_resource_and_respond!(options={}, &block)
+      save_resource_and_respond!(options = {}, &block)
     end
     alias :create! :create
 
@@ -30,7 +30,7 @@ module SimpleResource
     alias :edit! :edit
 
     def update(options={}, &block)
-      save_resource_and_respond!(options={}, &block)
+      save_resource_and_respond!(options = {}, &block)
     end
     alias :update! :update
 
@@ -45,9 +45,7 @@ module SimpleResource
     def save_resource_and_respond!(options={}, &block)
       result = resource.update(permitted_params)
 
-      unless result.present?
-        resource.errors[:base] << 'Something goes wrong.'
-      end
+      resource.errors[:base] << 'Something goes wrong.' unless result.present?
 
       unless block_given? || options[:location].present?
         options[:location] = after_save_redirect_path

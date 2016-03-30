@@ -26,7 +26,7 @@ class LessonsController < ApplicationController
   end
 
   def author?
-   current_user.id == current_course.user.id
+    current_user.id == current_course.user.id
   end
   helper_method :author?
 end

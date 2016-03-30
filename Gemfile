@@ -66,7 +66,7 @@ group :test, :development do
   gem 'letter_opener'
 end
 
-group :development do  
+group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'

@@ -28,5 +28,5 @@ class Homework < ActiveRecord::Base
 
   def homework_rejecting
     NotificationsMailer.homework_rejecting(self, user).deliver_now
-  end  
+  end
 end
