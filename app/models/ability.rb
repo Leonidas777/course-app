@@ -15,5 +15,9 @@ class Ability
     can :manage, Lesson do |lesson|
       lesson.course.user == user
     end
+
+    can :create, :course do
+      user.has_role? :trainer
+    end
   end
 end

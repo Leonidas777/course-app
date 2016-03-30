@@ -8,12 +8,12 @@ class Users::CoursesController < Users::BaseController
   end
 
   def new
-    return @course = current_user.authored_courses.build if current_user.has_role? :trainer
+    return @course = current_user.authored_courses.build if can? :create, :course
     redirect_after_creating 'Only trainer can add a new course.'
   end
 
   def create
-    if current_user.has_role? :trainer
+    if can? :create, :course
       @course = current_user.authored_courses.build(course_params)
       if @course.save
         redirect_after_creating 'The course was successfully added.'

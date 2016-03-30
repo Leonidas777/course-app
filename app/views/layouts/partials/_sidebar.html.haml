@@ -31,7 +31,7 @@
           = link_to users_courses_path do
             %i.fa.fa-briefcase
             %span My courses
-        - if current_user.has_role? :trainer
+        - if can? :create, :course
           %li
             = link_to new_users_course_path do
               %i.fa.fa-cube

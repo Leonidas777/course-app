@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :homeworks
   has_many :blocked_users_courses, through: :course_blocked_user, source: :course
 
-  after_create do 
+  after_commit do
     create_user_profile
     set_default_role
   end
