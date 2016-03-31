@@ -6,6 +6,8 @@ class Homework < ActiveRecord::Base
 
   validates :content, presence: true
 
+  after_commit :send_homework_for_checking
+
   aasm column: :state do
     state :pending, initial: true
     state :approved
@@ -22,11 +24,15 @@ class Homework < ActiveRecord::Base
 
   private
 
-  def homework_approving
+  def homework_approving    
     NotificationsMailer.homework_approving(self, user).deliver_now
   end
 
   def homework_rejecting
     NotificationsMailer.homework_rejecting(self, user).deliver_now
+  end
+
+  def send_homework_for_checking
+    lesson.course.user.received_homeworks << self
   end
 end

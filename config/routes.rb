@@ -40,6 +40,9 @@ Rails.application.routes.draw do
     resources :subscribed_courses, only: [:index]
 
     resources :activities, only: :index
+    resources :received_homeworks, only: :index
+
+    resources :homeworks_handling, only: [:create, :destroy], controller: :homeworks_handling
   end
 
   # Example of regular route:

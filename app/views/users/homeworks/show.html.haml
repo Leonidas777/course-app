@@ -1,1 +1,15 @@
-%p= @homework.hw_text
+.box-header.with-border
+  %h1.box-title Homework
+.box-header.with-border
+  %h2.box-title
+    to 
+    = link_to homework.lesson.title, users_lesson_path(homework.lesson)
+    from #{homework.user.first_name} #{homework.user.last_name}
+%p= homework.content
+
+.row{id: "homework_buttons-#{homework.id}"}
+  - if can? :manage, homework.lesson  
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      = link_to 'Approve', users_homeworks_handling_index_path(homework.lesson, homework), remote: true, method: :post, class: 'btn btn-block btn-info'
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      = link_to 'Reject', users_homeworks_handling_path(homework.lesson, homework), remote: true, method: :delete, class: 'btn btn-block btn-info'
