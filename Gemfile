@@ -16,6 +16,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'devise'
 
+gem 'cancancan'
+
 gem 'kaminari'
 
 gem 'carrierwave', '0.9.0'
@@ -29,6 +31,8 @@ gem 'coffee-rails'
 gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+
+gem 'rolify'
 
 group :production, :release, :staging do
   gem 'rails_12factor'
@@ -51,6 +55,7 @@ group :development do
   gem 'letter_opener'
   gem 'annotate'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'spring-commands-rspec'
   gem 'bullet'
   gem 'hirb'

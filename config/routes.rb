@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :lessons do
       resources :homeworks, only: [:new, :create, :show, :destroy]
     end
+    resources :subscribed_courses, only: [:index]
   end
 
   # Example of regular route:
