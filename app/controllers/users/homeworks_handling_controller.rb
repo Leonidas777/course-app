@@ -1,5 +1,4 @@
 class Users::HomeworksHandlingController < Users::BaseController
-
   def create
     homework.approve
   end

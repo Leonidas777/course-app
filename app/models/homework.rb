@@ -24,7 +24,7 @@ class Homework < ActiveRecord::Base
 
   private
 
-  def homework_approving    
+  def homework_approving
     NotificationsMailer.homework_approving(self, user).deliver_now
   end
 

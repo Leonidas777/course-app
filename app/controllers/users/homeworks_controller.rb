@@ -1,5 +1,4 @@
 class Users::HomeworksController < Users::BaseController
-
   def show
   end
 
