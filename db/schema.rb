@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316175210) do
+ActiveRecord::Schema.define(version: 20160320142301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,10 @@ ActiveRecord::Schema.define(version: 20160316175210) do
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
+
+  add_index "homeworks", ["state"], name: "index_homeworks_on_state", using: :btree
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "course_id"
@@ -64,9 +67,13 @@ ActiveRecord::Schema.define(version: 20160316175210) do
     t.string   "homework"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "visible",     default: true
-    t.date     "date"
+    t.boolean  "visible",          default: true
+    t.string   "state"
+    t.datetime "meeting_datetime"
+    t.string   "shared_key"
   end
+
+  add_index "lessons", ["state"], name: "index_lessons_on_state", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
