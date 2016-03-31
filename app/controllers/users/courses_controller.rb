@@ -2,26 +2,22 @@ class Users::CoursesController < Users::BaseController
   PER_PAGE = 3
 
   before_action :find_course, only: [:edit, :update, :destroy]
+  before_filter :user_cannot_create_course, only: [:new, :create]
 
   def index
     @courses = current_user.authored_courses.recent.page(params[:page]).per(params[:per_page] || PER_PAGE)
   end
 
   def new
-    return @course = current_user.authored_courses.build if can? :create, :course
-    redirect_after_creating 'Only trainer can add a new course.'
+    @course = current_user.authored_courses.build
   end
 
   def create
-    if can? :create, :course
-      @course = current_user.authored_courses.build(course_params)
-      if @course.save
-        redirect_after_creating 'The course was successfully added.'
-      else
-        render :new
-      end
+    @course = current_user.authored_courses.build(course_params)
+    if @course.save
+      redirect_after_creating 'The course was successfully added.'
     else
-      redirect_after_creating 'Only trainer can add a new course.'
+      render :new
     end
   end
 
@@ -50,6 +46,12 @@ class Users::CoursesController < Users::BaseController
 
   def find_course
     @course = current_user.authored_courses.find(params[:id])
+  end
+
+  def user_cannot_create_course
+    if cannot? :create, :course
+      return redirect_after_creating 'Only trainer can add a new course.'
+    end
   end
 
   def redirect_after_creating(message)
