@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320142301) do
+ActiveRecord::Schema.define(version: 20160331101005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "owner_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "kind"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["kind"], name: "index_activities_on_kind", using: :btree
+  add_index "activities", ["owner_id"], name: "index_activities_on_owner_id", using: :btree
+  add_index "activities", ["recipient_id"], name: "index_activities_on_recipient_id", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "course_blocked_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -85,6 +101,15 @@ ActiveRecord::Schema.define(version: 20160320142301) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "received_homework_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "homework_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "received_homework_users", ["user_id", "homework_id"], name: "index_received_homework_users_on_user_id_and_homework_id", unique: true, using: :btree
 
   create_table "rokes", force: :cascade do |t|
     t.string   "name"

@@ -16,6 +16,10 @@ class ParticipantsController < ApplicationController
   def course
     @course ||= Course.find(params[:course_id])
   end
-
   helper_method :course
+
+  def blocked_user?
+    course.blocked_users.where(id: current_user).exists?
+  end
+  helper_method :blocked_user?
 end

@@ -1,5 +1,4 @@
 class Users::HomeworksController < Users::BaseController
-  before_filter :authenticate_user!
 
   def show
   end
@@ -26,4 +25,12 @@ class Users::HomeworksController < Users::BaseController
   def homework_params
     params.require(:homework).permit(:content)
   end
+
+  def homework
+    lesson = Lesson.find(params[:lesson_id])
+    if can? :read, lesson
+      @homework ||= Homework.find_by(lesson_id: params[:lesson_id], id: params[:id])
+    end
+  end
+  helper_method :homework
 end

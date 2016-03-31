@@ -16,4 +16,6 @@
           = f.input :summary, as: :text, placeholder: 'Compose a short summary about your new lesson', input_html: { class: 'form-control', style: 'height: 140px' }
         .form-group
           = f.input :homework, as: :text, placeholder: 'Compose homework for your students', input_html: { class: 'form-control', style: 'height: 140px' }
+        .form-group
+          = f.input :meeting_datetime, as: :datetime
         = f.submit 'Save', class: 'btn btn-primary'

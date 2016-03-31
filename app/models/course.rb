@@ -12,6 +12,11 @@ class Course < ActiveRecord::Base
 
   mount_uploader :picture, ProjectPictureUploader
 
+  def creating_date
+    return created_at.strftime('on %B %d, %Y, %I:%M%p') if created_at.present?
+    'undefined'
+  end
+
   def expel_user(user)
     course_user_rec = CourseUser.all.where(course_id: id, user_id: user.id).first
     course_user_rec.block = true if course_user_rec.present?

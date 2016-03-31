@@ -7,6 +7,8 @@ gem 'uglifier'
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'simple_form'
+gem 'draper'
+gem 'aasm'
 
 gem 'pg', '0.17.1'
 gem 'puma', '1.5.0'
@@ -16,6 +18,18 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'devise'
 
+gem 'sidekiq', '~>3.5.4'
+gem 'sidekiq-status'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'foreman'
+
+gem 'koala'
+gem 'twitter'
+
+gem 'active_model_serializers'
 gem 'cancancan'
 
 gem 'kaminari'
@@ -49,10 +63,10 @@ group :test, :development do
   gem 'quiet_assets'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_girl_rails'
+  gem 'letter_opener'
 end
 
 group :development do
-  gem 'letter_opener'
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
