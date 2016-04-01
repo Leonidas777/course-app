@@ -1,4 +1,6 @@
 class Users::HomeworksController < Users::BaseController
+  before_filter :user_cannot_read_lesson
+
   def show
   end
 
@@ -25,11 +27,11 @@ class Users::HomeworksController < Users::BaseController
     params.require(:homework).permit(:content)
   end
 
-  def homework
-    lesson = Lesson.find(params[:lesson_id])
-    if can? :read, lesson
-      @homework ||= Homework.find_by(lesson_id: params[:lesson_id], id: params[:id])
-    end
+  def lesson
+    @lesson ||= Lesson.find(params[:lesson_id])
   end
-  helper_method :homework
+
+  def user_cannot_read_lesson
+    return if cannot? :read, lesson
+  end
 end

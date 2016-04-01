@@ -6,7 +6,9 @@ class Homework < ActiveRecord::Base
 
   validates :content, presence: true
 
-  after_commit :send_homework_for_checking
+  scope :recent, -> { order(created_at: :desc) }
+
+  after_create :send_homework_for_checking
 
   aasm column: :state do
     state :pending, initial: true
@@ -18,7 +20,7 @@ class Homework < ActiveRecord::Base
     end
 
     event :reject do
-      transitions from: :approved, to: :rejected, after_commit: :homework_rejecting
+      transitions to: :rejected, after_commit: :homework_rejecting
     end
   end
 

@@ -1,1 +1,4 @@
-alert("Lesson was rejected.");
+$("#hw_current_status").text("<%= homework.aasm.current_state %>");
+
+$("#reject_button").hide();
+$("#approve_button").show();

@@ -1,13 +1,16 @@
 .box-header.with-border
   %h1.box-title Received homeworks
-%table.table.table-bordered
-  %tbody#subscribed-courses-list
-    %tr
-      %th Lesson
-      %th Student name
-      %th Content
-    - @homeworks.each do |homework|
-      %tr{id: "received-homework-#{homework.id}"}
-        %td= homework.lesson.title
-        %td= "#{homework.user.first_name} #{homework.user.last_name}"
-        %td= link_to 'Content', users_lesson_homework_path(homework.lesson, homework)
+- if @homeworks.size > 0
+  .box-body.table-responsive.no-padding
+    %table.table.table-hover
+      %tbody
+        %tr
+          %th Lesson
+          %th Student name
+          %th Created
+          %th Status
+          %th Content
+        - @homeworks.each do |homework|
+          = render 'homework', homework: homework
+- else
+  %h2 No received homeworks

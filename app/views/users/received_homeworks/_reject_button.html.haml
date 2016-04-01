@@ -1,0 +1,2 @@
+.col-xs-6.col-sm-6.col-md-6.col-lg-6{ style: ('display: none;' if homework.rejected?), id: 'reject_button' }
+  = link_to 'Reject', users_homeworks_handling_path(id: homework.id), remote: true, method: :delete, class: 'btn btn-block btn-info'

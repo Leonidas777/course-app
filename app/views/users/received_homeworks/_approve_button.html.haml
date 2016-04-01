@@ -1,0 +1,2 @@
+.col-xs-6.col-sm-6.col-md-6.col-lg-6{ style: ('display: none;' if homework.approved?), id: 'approve_button' }
+  = link_to 'Approve', users_homeworks_handling_index_path(id: homework.id), remote: true, method: :post, class: 'btn btn-block btn-info'
