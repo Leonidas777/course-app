@@ -6,5 +6,8 @@
   - notifications
   - default
 
-production:
+development:
   :namespace: rubyboost_development
+
+production:
+  :namespace: rubyboost_production
