@@ -8,17 +8,16 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   has_one  :profile, dependent: :destroy
-  has_many :courses
+  has_many :courses, dependent: :destroy
   has_many :authored_courses, class_name: 'Course', foreign_key: :user_id, dependent: :destroy
-  has_many :social_profiles
-  has_many :course_users
+  has_many :social_profiles, dependent: :destroy
+  has_many :course_users, dependent: :destroy
   has_many :participated_courses, through: :course_users, source: :course
 
-  has_many :homeworks
-  has_many :received_homework_users
+  has_many :homeworks, dependent: :destroy
+  has_many :received_homework_users, dependent: :destroy
   has_many :received_homeworks, through: :received_homework_users, source: :homework
-
-  has_many :blocked_users_courses, through: :course_blocked_user, source: :course
+  
   has_many :activities_for_me,  class_name: 'Activity', foreign_key: :recipient_id
   has_many :activities_from_me, class_name: 'Activity', foreign_key: :owner_id
 
@@ -56,6 +55,7 @@ class User < ActiveRecord::Base
   private
 
   def create_user_profile
+    return if profile.present?
     build_profile
     profile.save(validates: false)
   end
