@@ -1,0 +1,16 @@
+.box-header.with-border
+  %h1.box-title Received homeworks
+- if @homeworks.size > 0
+  .box-body.table-responsive.no-padding
+    %table.table.table-hover
+      %tbody
+        %tr
+          %th Lesson
+          %th Student name
+          %th Created
+          %th Status
+          %th Content
+        - @homeworks.each do |homework|
+          = render 'homework', homework: homework
+- else
+  %h2 No received homeworks

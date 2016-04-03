@@ -1,0 +1,18 @@
+- if @activities.size > 0
+  .box
+    .box-header
+      %h3.box-title Activities
+    .box-body.table-responsive.no-padding
+      %table.table.table-hover
+        %tbody
+          %tr
+            %th ID
+            %th Event
+            %th Author
+            %th Date
+            %th Status
+            %th Message
+          - @activities.each do |activity|
+            = render activity.partial_name, activity: activity
+- else
+  %h2 No Activities

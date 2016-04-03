@@ -1,0 +1,18 @@
+.box-header.with-border
+  %h1.box-title Homework
+.box-header.with-border
+  %h2.box-title
+    to 
+    = link_to homework.lesson.title, users_lesson_path(homework.lesson)
+    from #{homework.user.first_name} #{homework.user.last_name}
+%p= homework.content
+
+%h3 Status:
+%span{id: 'hw_current_status'}= "#{homework.aasm.current_state}"
+
+.row
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    .row{id: "homework_buttons"}
+      - if can? :manage, homework.lesson 
+        = render 'approve_button'
+        = render 'reject_button'

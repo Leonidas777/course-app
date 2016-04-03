@@ -1,0 +1,7 @@
+%tr{id: "received-homework-#{homework.id}"}
+  %td= homework.lesson.title
+  %td= "#{homework.user.first_name} #{homework.user.last_name}"
+  %td= homework.creating_date
+  %td 
+    %span.label{ class: "label-#{homework.define_html_status_class_name}" }= homework.aasm.current_state
+  %td= link_to 'Content', users_received_homework_path(homework), class: 'btn btn-block btn-info btn-xs'

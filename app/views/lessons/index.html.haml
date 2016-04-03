@@ -13,7 +13,7 @@
                 = image_tag current_course.picture.thumb_40x40, class: 'img-circle', alt: 'Course Image'
                 %span.username
                   = lesson.title
-                %span.description "Created at #{lesson.created_at}"
+                %span.description Created at: #{lesson.creating_date}
               .box-tools
                 %button.btn.btn-box-tool{ "data-widget": "collapse" }
                   %i.fa.fa-minus
@@ -22,11 +22,6 @@
             .box-body
               = image_tag lesson.picture.thumb_323x323, class: 'img-responsive pad', alt: 'Lesson Image'
               .row{id: "lesson_buttons-#{lesson.attributes['id']}"}
-                - if user_signed_in? && author?
-                  - if lesson.visible?
-                    = render 'lessons/invisible_butt', lesson: lesson
-                  - else
-                    = render 'lessons/visible_butt', lesson: lesson
                 - if can? :read, lesson
                   .col-xs-6.col-sm-6.col-md-6.col-lg-6{id: "lesson-#{lesson.attributes['id']}-see-butt"}
                     = link_to 'See', course_lesson_path(id: lesson.attributes['id']), class: 'btn btn-block btn-info'

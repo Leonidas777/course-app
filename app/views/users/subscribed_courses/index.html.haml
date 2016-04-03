@@ -9,7 +9,7 @@
     - @courses.each do |course|
       %tr{id: "subscribed-course-#{course.id}"}
         %td
-          = course.title        
+          = link_to course.title, course_lessons_path(course)
         %td= "#{course.user.first_name} #{course.user.last_name}"
         %td
           = link_to 'participants', course_participants_path(course)

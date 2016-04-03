@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -5,9 +7,23 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  mount Sidekiq::Web, at: '/sidekiq'
+
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :courses do
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: :index
+      resources :auth_tokens, only: :create
+
+      scope 'user/self', as: 'user', module: 'user' do
+        resources :courses, only: :index
+        resources :subscribed_courses, only: :index
+      end
+    end
+  end
+
+  resources :courses, only: [:index, :show] do
     resources :participants, only: [:index, :destroy]
     resource  :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
     resources :visible_lessons, only: [:create, :destroy], controller: :visible_lessons
@@ -22,6 +38,11 @@ Rails.application.routes.draw do
       resources :homeworks, only: [:new, :create, :show, :destroy]
     end
     resources :subscribed_courses, only: [:index]
+
+    resources :activities, only: :index
+    resources :received_homeworks, only: [:index, :show]
+
+    resources :homeworks_handling, only: [:create, :destroy], controller: :homeworks_handling
   end
 
   # Example of regular route:

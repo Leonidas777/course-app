@@ -1,0 +1,2 @@
+<h1>Hello, <%= @recipient.first_name %></h1>
+<p>A homework for lesson <%= link_to @homework.lesson.title, course_lesson_url(@homework.lesson.course, @homework.lesson) %> was rejected.</p>
