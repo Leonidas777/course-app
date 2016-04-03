@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :homeworks, dependent: :destroy
   has_many :received_homework_users, dependent: :destroy
   has_many :received_homeworks, through: :received_homework_users, source: :homework
-  
+
   has_many :activities_for_me,  class_name: 'Activity', foreign_key: :recipient_id
   has_many :activities_from_me, class_name: 'Activity', foreign_key: :owner_id
 

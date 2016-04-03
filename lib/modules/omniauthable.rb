@@ -16,7 +16,7 @@ module Omniauthable
       social_profile.present? ? social_profile.user : nil
     end
 
-    def self.create_with_oauth(oauth_data)      
+    def self.create_with_oauth(oauth_data)
       if oauth_data.size > 2
         first_name, last_name = parse_name(oauth_data)
         user = User.new(profile_attributes: { first_name: first_name, last_name: last_name })
