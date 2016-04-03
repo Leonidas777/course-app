@@ -44,8 +44,8 @@ class Api::V1::AuthTokensController < ActionController::Base
 
   def twitter
     @twitter = Twitter::REST::Client.new do |config|
-      config.consumer_key        = ENV['twitter_consumer_key']
-      config.consumer_secret     = ENV['twitter_consumer_secret']
+      config.consumer_key        = ENV['twitter_token']
+      config.consumer_secret     = ENV['twitter_key']
       config.access_token        = params[:access_token]
       config.access_token_secret = params[:secret_key]
     end
