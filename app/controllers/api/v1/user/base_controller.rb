@@ -5,7 +5,9 @@ class Api::V1::User::BaseController < Api::V1::BaseController
 
   def authenticate_user!
     user = User.find_by(authentication_token: params[:auth_token])
-    return sign_in user, store: false if user.present?
-    raise NotAuthorized
+
+    raise NotAuthorized unless user.present?
+
+    sign_in user, store: false
   end
 end

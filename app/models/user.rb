@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :activities_from_me, class_name: 'Activity', foreign_key: :owner_id
 
   before_save  :ensure_authentication_token
-  
+
   after_create do
     create_user_profile
     set_default_role
