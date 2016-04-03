@@ -9,7 +9,7 @@
         .form-group
           .row
             .col-xs-6.col-sm-4.col-md-4.col-lg-3
-              = f.input :position, input_html: { class: 'form-control' }
+              = f.input :position, as: :integer, input_html: { class: 'form-control' }
         .form-group
           = f.input :picture, as: :file
         .form-group

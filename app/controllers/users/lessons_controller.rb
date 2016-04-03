@@ -30,7 +30,7 @@ class Users::LessonsController < Users::BaseController
   private
 
   def lesson_params
-    params.require(:lesson).permit(:title, :picture, :position, :description, :picture, :summary, :homework)
+    params.require(:lesson).permit(:title, :picture, :position, :description, :picture, :summary, :homework, :meeting_datetime)
   end
 
   def current_course
