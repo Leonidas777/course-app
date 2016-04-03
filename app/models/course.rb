@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
   has_many   :course_blocked_users
   has_many   :participants, through: :course_users, source: :user
   has_many   :blocked_users, through: :course_blocked_users, source: :user
-  has_many   :lessons, foreign_key: :course_id
+  has_many   :lessons, foreign_key: :course_id, dependent: :destroy
 
   scope :recent, -> { order(created_at: :desc) }
 
