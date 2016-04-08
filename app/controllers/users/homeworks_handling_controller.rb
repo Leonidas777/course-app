@@ -2,15 +2,11 @@ class Users::HomeworksHandlingController < Users::BaseController
   before_filter :user_cannot_read_lesson
 
   def create
-    if homework.approve!
-      ApprovedHomeworkNotificationWorker.perform_async(homework.id)
-    end
+    homework.approve!
   end
 
   def destroy
-    if homework.reject!
-      RejectedHomeworkNotificationWorker.perform_async(homework.id)
-    end
+    homework.reject!
   end
 
   def homework
